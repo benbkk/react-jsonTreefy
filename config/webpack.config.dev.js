@@ -85,9 +85,9 @@ module.exports = {
         extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
         alias: {
             components: paths.appComponents,
-            static: paths.appStatic,
+            Static: paths.appStatic,
             config: paths.appConfig,
-            css: paths.appCss,
+            css: paths.appStyles,
             variables: paths.appVariables,
             // Support React Native Web
             // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
