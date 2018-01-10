@@ -1,54 +1,86 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { flatten, replacer, getObjectType } from '../../utilities';
+import JsonNode from 'components/JsonNode';
 
-import MainStage from './StyledMain';
-import { Form, TextArea } from 'Static/FormElements';
+import AppWrapper from './StyledMain';
 
-class JsonViewer extends Component {
+const identity = value => value;
+const expandRootNode = (keyName, data, level) => level === 0;
+const defaultItemString = (type, data, itemType, itemString) => (
+  <span>
+    {itemType} {itemString}
+  </span>
+);
+const defaultLabelRenderer = ([label]) => <span>{label}:</span>;
+const noCustomNode = () => false;
+
+export default class JsonView extends React.Component {
+    static propTypes = {
+      data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+      hideRoot: PropTypes.bool,
+      theme: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+      invertTheme: PropTypes.bool,
+      keyPath: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      ),
+      postprocessValue: PropTypes.func,
+      sortObjectKeys: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
+    };
+  
+    static defaultProps = {
+      shouldExpandNode: expandRootNode,
+      hideRoot: false,
+      keyPath: ['root'],
+      getItemString: defaultItemString,
+      labelRenderer: defaultLabelRenderer,
+      valueRenderer: identity,
+      postprocessValue: identity,
+      isCustomNode: noCustomNode,
+      collectionLimit: 50,
+      invertTheme: true
+    };
+  
     constructor(props) {
-        super(props);
-        this.state = {
-            inputData: {},
-            books: [],
-            error: false,
-        }
-
-        this.handleChange = this.handleChange.bind(this);
+      super(props);
+      this.state = {
+          data: {}
+      }
     }
-
+  
+    componentWillReceiveProps(nextProps) {
+      // if (['theme', 'invertTheme'].find(k => nextProps[k] !== this.props[k])) {
+        // this.setState(getStateFromProps(nextProps));
+      // }
+    }
+  
+    shouldComponentUpdate(nextProps) {
+      /* return !!Object.keys(nextProps).find(
+        k =>
+          k === 'keyPath'
+            ? nextProps[k].join('/') !== this.props[k].join('/')
+            : nextProps[k] !== this.props[k]
+      ); */
+    }
+  
     render() {
-        console.log(this.state.books);
-        // const inputDataParsed = JSON.parse(this.state.inputData);
-        return (
-            <Form className={'app--mainstage'}>
-                <TextArea
-                    className={'input-data'}
-                    name={'inputData'}
-                    placeHolder={'Paste your data here'}
-                    onChange={this.handleChange} 
-                >
-                </TextArea>
-                {!this.state.books && 'Loading...'}
-                <div>
-                    <pre>{JSON.stringify(this.state.books, replacer, 3)}</pre>
-                </div>
-
-            </Form>
-        )
+      const {
+        data: value,
+        keyPath,
+        postprocessValue,
+        hideRoot,
+        ...rest
+      } = this.props;
+  
+  
+      return (
+        <ul>
+          <JsonNode
+            {...{ postprocessValue, hideRoot, ...rest }}
+            keyPath={hideRoot ? [] : keyPath}
+            value={postprocessValue(value)}
+          />
+        </ul>
+      );
     }
-
-    handleChange(e) {
-        /* let data = JSON.parse(e.target.value);
-        let dataType = getObjectType(data);
-        console.log(dataType);
-        data = Object.assign([], Object.values(data));
-        const books = flatten(data);
-        // const books = Object.assign([], flatten(Object.values(data)));
-        this.setState({
-            books: books,
-        }) */
-    }
-}
-
-export default JsonViewer;
+  }
+  

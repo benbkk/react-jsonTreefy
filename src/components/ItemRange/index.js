@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsonArrow from 'static/JsonArrow';
+import JsonArrow from 'Static/JsonArrow';
 
 export default class ItemRange extends React.Component {
     static propTypes = {

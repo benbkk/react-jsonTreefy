@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import objType from './objType';
-import JsonObject from './JsonObject';
-import JsonArray from './JsonArray';
-import JsonIterable from './JsonIterable';
-import JsonValue from './JsonValue';
+import { objectType } from 'utils';
+import JsonObject from 'components/JsonObject';
+import JsonArray from 'components/JsonArray';
+import JsonIterable from 'components/JsonIterable';
+import JsonValue from 'components/JsonValue';
 
 const JsonNode = ({
   getItemString,
   keyPath,
   labelRenderer,
-  styling,
   value,
   valueRenderer,
   isCustomNode,
   ...rest
 }) => {
-  const nodeType = isCustomNode(value) ? 'Custom' : objType(value);
+  const nodeType = isCustomNode(value) ? 'Custom' : objectType(value);
 
   const simpleNodeProps = {
     getItemString,
@@ -24,7 +23,6 @@ const JsonNode = ({
     keyPath,
     labelRenderer,
     nodeType,
-    styling,
     value,
     valueRenderer
   };
@@ -95,7 +93,6 @@ JsonNode.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   labelRenderer: PropTypes.func.isRequired,
-  styling: PropTypes.func.isRequired,
   value: PropTypes.any,
   valueRenderer: PropTypes.func.isRequired,
   isCustomNode: PropTypes.func.isRequired

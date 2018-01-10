@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const JSONValue = ({
-    entryId,
     nodeType,
     labelRenderer, 
     keyPath,
@@ -11,11 +10,11 @@ const JSONValue = ({
     valueGetter,
 }) => (
     <li>
-        <label htmlFor={entryId}>
+        <label htmlFor={'entryId'}>
             {labelRenderer(keyPath, nodeType, false, false)}
         </label>
         <span>
-            {valueRenderer(valueGetter(valule), value, ...keyPath)}
+            {valueRenderer(valueGetter(value), value, ...keyPath)}
         </span> 
     </li> 
 );

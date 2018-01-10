@@ -1,5 +1,5 @@
 import React from 'react';
-import JsonNested from './JsonNested';
+import JsonNested from 'components/JsonNested';
 
 // Returns the "n Items" string for this node,
 // generating and caching it if it hasn't been created yet.
