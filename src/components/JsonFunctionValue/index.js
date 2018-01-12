@@ -1,6 +1,6 @@
 /*
  * Author: Alexandre Havrileck (Oxyno-zeta)
- * Date: 18/10/16
+ * Date: 13/11/16
  * Licence: See Readme
  */
 /* ************************************* */
@@ -29,7 +29,7 @@ const propTypes = {
     getStyle: PropTypes.func.isRequired,
     editButtonElement: PropTypes.element,
     cancelButtonElement: PropTypes.element,
-    inputElement: PropTypes.element,
+    textareaElement: PropTypes.element,
     minusMenuElement: PropTypes.element,
 };
 // Default props
@@ -40,14 +40,14 @@ const defaultProps = {
     },
     editButtonElement: <button>e</button>,
     cancelButtonElement: <button>c</button>,
-    inputElement: <input />,
+    textareaElement: <textarea />,
     minusMenuElement: <span> - </span>,
 };
 
 /* ************************************* */
 /* ********      COMPONENT      ******** */
 /* ************************************* */
-class JsonValue extends Component {
+class JsonFunctionValue extends Component {
     constructor(props) {
         super(props);
         const keyPath = [
@@ -133,35 +133,37 @@ class JsonValue extends Component {
             getStyle,
             editButtonElement,
             cancelButtonElement,
-            inputElement,
+            textareaElement,
             minusMenuElement,
             } = this.props;
 
         const style = getStyle(name, value, keyPath, deep, dataType);
         let result = null;
         let minusElement = null;
-        const readOnlyResult = readOnly(name, value, keyPath, deep, dataType);
+        const resultOnlyResult = readOnly(name, value, keyPath, deep, dataType);
 
-        if (editEnabled && !readOnlyResult) {
+        if (editEnabled && !resultOnlyResult) {
             const editButtonElementLayout = React.cloneElement(editButtonElement, {
                 onClick: this.handleEdit,
             });
             const cancelButtonElementLayout = React.cloneElement(cancelButtonElement, {
                 onClick: this.handleCancelEdit,
             });
-            const inputElementLayout = React.cloneElement(inputElement, {
+            const textareaElementLayout = React.cloneElement(textareaElement, {
                 ref: this.refInput,
                 defaultValue: originalValue,
             });
 
             result = (<span className="rejt-edit-form" style={style.editForm}>
-                {inputElementLayout} {cancelButtonElementLayout}{editButtonElementLayout}
+                {textareaElementLayout} {cancelButtonElementLayout}{editButtonElementLayout}
             </span>);
             minusElement = null;
         } else {
             /* eslint-disable jsx-a11y/no-static-element-interactions */
             result = (
-                <span className="rejt-value" style={style.value} onClick={readOnlyResult ? null : this.handleEditMode}>
+                <span
+                    className="rejt-value" style={style.value} onClick={resultOnlyResult ? null : this.handleEditMode}
+                >
                     {value}
                 </span>
             );
@@ -171,7 +173,7 @@ class JsonValue extends Component {
                 className: 'rejt-minus-menu',
                 style: style.minus,
             });
-            minusElement = (readOnlyResult) ? null : minusMenuLayout;
+            minusElement = (resultOnlyResult) ? null : minusMenuLayout;
         }
 
         const handlers = {
@@ -180,7 +182,7 @@ class JsonValue extends Component {
         };
 
         return (
-            <HotKeys className="rejt-value-node" component={'li'} style={style.li} handlers={handlers}>
+            <HotKeys component={'li'} className="rejt-function-value-node" style={style.li} handlers={handlers}>
                 <span className="rejt-name" style={style.name}>{name} : </span>{result}
                 {minusElement}
             </HotKeys>
@@ -189,11 +191,11 @@ class JsonValue extends Component {
 }
 
 // Add prop types
-JsonValue.propTypes = propTypes;
+JsonFunctionValue.propTypes = propTypes;
 // Add default props
-JsonValue.defaultProps = defaultProps;
+JsonFunctionValue.defaultProps = defaultProps;
 
 /* ************************************* */
 /* ********       EXPORTS       ******** */
 /* ************************************* */
-export default JsonValue;
+export default JsonFunctionValue;

@@ -1,101 +1,317 @@
-import React from 'react';
+/*
+ * Author: Alexandre Havrileck (Oxyno-zeta)
+ * Date: 20/10/16
+ * Licence: See Readme
+ */
+/* ************************************* */
+/* ********       IMPORTS       ******** */
+/* ************************************* */
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { objectType } from 'utils';
+import JsonValue from 'components/JsonValue';
 import JsonObject from 'components/JsonObject';
 import JsonArray from 'components/JsonArray';
-import JsonIterable from 'components/JsonIterable';
-import JsonValue from 'components/JsonValue';
+import JsonFunctionValue from 'components/JsonFunctionValue';
+import { getObjectType } from 'utils/objectTypes';
 
-const JsonNode = ({
-  getItemString,
-  keyPath,
-  labelRenderer,
-  value,
-  valueRenderer,
-  isCustomNode,
-  ...rest
-}) => {
-  const nodeType = isCustomNode(value) ? 'Custom' : objectType(value);
-
-  const simpleNodeProps = {
-    getItemString,
-    key: keyPath[0],
-    keyPath,
-    labelRenderer,
-    nodeType,
-    value,
-    valueRenderer
-  };
-
-  const nestedNodeProps = {
-    ...rest,
-    ...simpleNodeProps,
-    data: value,
-    isCustomNode
-  };
-
-  switch (nodeType) {
-    case 'Object':
-    case 'Error':
-    case 'WeakMap':
-    case 'WeakSet':
-      return <JsonObject {...nestedNodeProps} />;
-    case 'Array':
-      return <JsonArray {...nestedNodeProps} />;
-    case 'Iterable':
-    case 'Map':
-    case 'Set':
-      return <JsonIterable {...nestedNodeProps} />;
-    case 'String':
-      return (
-        <JsonValue {...simpleNodeProps} valueGetter={raw => `"${raw}"`} />
-      );
-    case 'Number':
-      return <JsonValue {...simpleNodeProps} />;
-    case 'Boolean':
-      return (
-        <JsonValue
-          {...simpleNodeProps}
-          valueGetter={raw => (raw ? 'true' : 'false')}
-        />
-      );
-    case 'Date':
-      return (
-        <JsonValue
-          {...simpleNodeProps}
-          valueGetter={raw => raw.toISOString()}
-        />
-      );
-    case 'Null':
-      return <JsonValue {...simpleNodeProps} valueGetter={() => 'null'} />;
-    case 'Undefined':
-      return (
-        <JsonValue {...simpleNodeProps} valueGetter={() => 'undefined'} />
-      );
-    case 'Function':
-    case 'Symbol':
-      return (
-        <JsonValue
-          {...simpleNodeProps}
-          valueGetter={raw => raw.toString()}
-        />
-      );
-    case 'Custom':
-      return <JsonValue {...simpleNodeProps} />;
-    default:
-      return null;
-  }
+/* ************************************* */
+/* ********      VARIABLES      ******** */
+/* ************************************* */
+// Prop types
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    data: PropTypes.any,
+    isCollapsed: PropTypes.func.isRequired,
+    keyPath: PropTypes.array,
+    deep: PropTypes.number,
+    handleRemove: PropTypes.func,
+    handleUpdateValue: PropTypes.func,
+    onUpdate: PropTypes.func.isRequired,
+    onDeltaUpdate: PropTypes.func.isRequired,
+    readOnly: PropTypes.func.isRequired,
+    getStyle: PropTypes.func.isRequired,
+    addButtonElement: PropTypes.element,
+    cancelButtonElement: PropTypes.element,
+    editButtonElement: PropTypes.element,
+    inputElement: PropTypes.element,
+    textareaElement: PropTypes.element,
+    minusMenuElement: PropTypes.element,
+    plusMenuElement: PropTypes.element,
+    beforeRemoveAction: PropTypes.func,
+    beforeAddAction: PropTypes.func,
+    beforeUpdateAction: PropTypes.func,
+};
+// Default props
+const defaultProps = {
+    keyPath: [],
+    deep: 0,
 };
 
-JsonNode.propTypes = {
-  getItemString: PropTypes.func.isRequired,
-  keyPath: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-  labelRenderer: PropTypes.func.isRequired,
-  value: PropTypes.any,
-  valueRenderer: PropTypes.func.isRequired,
-  isCustomNode: PropTypes.func.isRequired
-};
+/* ************************************* */
+/* ********      COMPONENT      ******** */
+/* ************************************* */
+class JsonNode extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: props.data,
+            name: props.name,
+            keyPath: props.keyPath,
+            deep: props.deep,
+        };
+    }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            data: nextProps.data,
+        });
+    }
+
+    render() {
+        const { data, name, keyPath, deep } = this.state;
+        const {
+            isCollapsed,
+            handleRemove,
+            handleUpdateValue,
+            onUpdate,
+            onDeltaUpdate,
+            readOnly,
+            getStyle,
+            addButtonElement,
+            cancelButtonElement,
+            editButtonElement,
+            inputElement,
+            textareaElement,
+            minusMenuElement,
+            plusMenuElement,
+            beforeRemoveAction,
+            beforeAddAction,
+            beforeUpdateAction,
+            } = this.props;
+        const readOnlyTrue = () => (true);
+
+        const dataType = getObjectType(data);
+        switch (dataType) {
+            case 'Error':
+                return (<JsonObject
+                    data={data}
+                    name={name}
+                    isCollapsed={isCollapsed}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    onUpdate={onUpdate}
+                    onDeltaUpdate={onDeltaUpdate}
+                    readOnly={readOnlyTrue}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    addButtonElement={addButtonElement}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    textareaElement={textareaElement}
+                    minusMenuElement={minusMenuElement}
+                    plusMenuElement={plusMenuElement}
+                    beforeRemoveAction={beforeRemoveAction}
+                    beforeAddAction={beforeAddAction}
+                    beforeUpdateAction={beforeUpdateAction}
+                />);
+            case 'Object':
+                return (<JsonObject
+                    data={data}
+                    name={name}
+                    isCollapsed={isCollapsed}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    onUpdate={onUpdate}
+                    onDeltaUpdate={onDeltaUpdate}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    addButtonElement={addButtonElement}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    textareaElement={textareaElement}
+                    minusMenuElement={minusMenuElement}
+                    plusMenuElement={plusMenuElement}
+                    beforeRemoveAction={beforeRemoveAction}
+                    beforeAddAction={beforeAddAction}
+                    beforeUpdateAction={beforeUpdateAction}
+                />);
+            case 'Array':
+                return (<JsonArray
+                    data={data}
+                    name={name}
+                    isCollapsed={isCollapsed}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    onUpdate={onUpdate}
+                    onDeltaUpdate={onDeltaUpdate}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    addButtonElement={addButtonElement}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    textareaElement={textareaElement}
+                    minusMenuElement={minusMenuElement}
+                    plusMenuElement={plusMenuElement}
+                    beforeRemoveAction={beforeRemoveAction}
+                    beforeAddAction={beforeAddAction}
+                    beforeUpdateAction={beforeUpdateAction}
+                />);
+            case 'String':
+                return (<JsonValue
+                    name={name}
+                    value={`"${data}"`}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Number':
+                return (<JsonValue
+                    name={name}
+                    value={data}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Boolean':
+                return (<JsonValue
+                    name={name}
+                    value={data ? 'true' : 'false'}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Date':
+                return (<JsonValue
+                    name={name}
+                    value={data.toISOString()}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnlyTrue}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Null':
+                return (<JsonValue
+                    name={name}
+                    value={'null'}
+                    originalValue={'null'}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Undefined':
+                return (<JsonValue
+                    name={name}
+                    value={'undefined'}
+                    originalValue={'undefined'}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Function':
+                return (<JsonFunctionValue
+                    name={name}
+                    value={data.toString()}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnly}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    textareaElement={textareaElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            case 'Symbol':
+                return (<JsonValue
+                    name={name}
+                    value={data.toString()}
+                    originalValue={data}
+                    keyPath={keyPath}
+                    deep={deep}
+                    handleRemove={handleRemove}
+                    handleUpdateValue={handleUpdateValue}
+                    readOnly={readOnlyTrue}
+                    dataType={dataType}
+                    getStyle={getStyle}
+                    cancelButtonElement={cancelButtonElement}
+                    editButtonElement={editButtonElement}
+                    inputElement={inputElement}
+                    minusMenuElement={minusMenuElement}
+                />);
+            default:
+                return null;
+        }
+    }
+}
+
+// Add prop types
+JsonNode.propTypes = propTypes;
+// Add default props
+JsonNode.defaultProps = defaultProps;
+
+/* ************************************* */
+/* ********       EXPORTS       ******** */
+/* ************************************* */
 export default JsonNode;

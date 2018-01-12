@@ -1,42 +1,35 @@
 /*
  * Author: Alexandre Havrileck (Oxyno-zeta)
- * Date: 18/10/16
+ * Date: 30/10/16
  * Licence: See Readme
  */
 /* ************************************* */
 /* ********       IMPORTS       ******** */
 /* ************************************* */
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Body from './Body';
 
 /* ************************************* */
 /* ********      VARIABLES      ******** */
 /* ************************************* */
-// Prop types
-const propTypes = {};
-// Default props
-const defaultProps = {};
+
 
 /* ************************************* */
 /* ********      COMPONENT      ******** */
 /* ************************************* */
-
-const App = () => (
-    <div>
-        <Header />
-        <Body />
-        <Footer />
-    </div>
-)
-
-// Add prop types
-App.propTypes = propTypes;
-// Add default props
-App.defaultProps = defaultProps;
+function Header() {
+    const style = {
+        fontSize: '24px',
+        color: 'rgb(255, 255, 255)',
+        lineHeight: '64px',
+        fontWeight: 300,
+        paddingLeft: '24px',
+        backgroundColor: 'rgb(0, 188, 212)',
+        marginBottom: '15px',
+    };
+    return (<div style={style}>React Editable Json Tree</div>);
+}
 
 /* ************************************* */
 /* ********       EXPORTS       ******** */
 /* ************************************* */
-export default App;
+export default Header;

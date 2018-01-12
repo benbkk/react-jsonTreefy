@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.4",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-hotkeys": "^0.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -90,8 +92,8 @@
     ],
     "moduleDirectories": [
       "node_modules",
-        "src",
-        "test"
+      "src",
+      "test"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"

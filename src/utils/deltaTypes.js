@@ -1,42 +1,34 @@
 /*
  * Author: Alexandre Havrileck (Oxyno-zeta)
- * Date: 18/10/16
+ * Date: 23/10/16
  * Licence: See Readme
  */
+
 /* ************************************* */
 /* ********       IMPORTS       ******** */
 /* ************************************* */
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Body from './Body';
+
 
 /* ************************************* */
 /* ********      VARIABLES      ******** */
 /* ************************************* */
-// Prop types
-const propTypes = {};
-// Default props
-const defaultProps = {};
+const ADD_DELTA_TYPE = 'ADD_DELTA_TYPE';
+const REMOVE_DELTA_TYPE = 'REMOVE_DELTA_TYPE';
+const UPDATE_DELTA_TYPE = 'UPDATE_DELTA_TYPE';
 
 /* ************************************* */
-/* ********      COMPONENT      ******** */
+/* ********  PRIVATE FUNCTIONS  ******** */
 /* ************************************* */
 
-const App = () => (
-    <div>
-        <Header />
-        <Body />
-        <Footer />
-    </div>
-)
 
-// Add prop types
-App.propTypes = propTypes;
-// Add default props
-App.defaultProps = defaultProps;
+/* ************************************* */
+/* ********   PUBLIC FUNCTIONS  ******** */
+/* ************************************* */
+
 
 /* ************************************* */
 /* ********       EXPORTS       ******** */
 /* ************************************* */
-export default App;
+export { ADD_DELTA_TYPE };
+export { REMOVE_DELTA_TYPE };
+export { UPDATE_DELTA_TYPE };
