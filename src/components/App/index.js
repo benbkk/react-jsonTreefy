@@ -1,7 +1,7 @@
 import React from 'react';
 import AppWrapper from './StyledApp';
 
-import MainStage from '../MainStage';
+import MainStage from 'components/MainStage';
 
 const App = () => (
     <AppWrapper className={'app-wrapper'}>
