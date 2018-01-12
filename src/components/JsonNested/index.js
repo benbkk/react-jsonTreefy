@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsonArrow from 'Static/JsonArrow';
+import JsonArrow from 'components/Static/JsonArrow';
 import getCollectionEntries from 'utils';
 import JsonNode from 'components/JsonNode';
 import ItemRange from 'components/ItemRange';
