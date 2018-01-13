@@ -43,20 +43,26 @@ module.exports = {
   dotenv: resolveApp('.env'),
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
-  appUtils: resolveApp('src/utils'),
-  appModules: resolveApp('src'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/index.js'),
   appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  appComponents: resolveApp('src/components'),
-  appStatic: resolveApp('src/components/Static'),
-  appConfig: resolveApp('config'),
-  appVariables: resolveApp('config/variables'),
-  appStyles: resolveApp('config/globalcss'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveApp('src/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  yarnLockFile: resolveApp('yarn.lock'),
+
+  appSrc: resolveApp('src'),
+  appModules: resolveApp('src'),
+  appUtils: resolveApp('src/utils'),
+  appIndexJs: resolveApp('src/index.js'),
+
+  appHtml: resolveApp('public/index.html'),
+
+  appComponents: resolveApp('src/components'),
+  appStatic: resolveApp('src/components/Static'),
+
+  appConfig: resolveApp('config'),
+  appVariables: resolveApp('src/variables'),
+  appStyles: resolveApp('config/globalcss'),
+
+  testsSetup: resolveApp('src/setupTests.js'),
+
 };

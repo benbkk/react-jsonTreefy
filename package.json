@@ -93,7 +93,8 @@
     "moduleDirectories": [
       "node_modules",
       "src",
-      "test"
+      "test",
+      "components"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"

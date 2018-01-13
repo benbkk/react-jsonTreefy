@@ -85,6 +85,7 @@ module.exports = {
         extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
         alias: {
             components: paths.appComponents,
+            static: paths.appStatic,
             config: paths.appConfig,
             css: paths.appStyles,
             variables: paths.appVariables,

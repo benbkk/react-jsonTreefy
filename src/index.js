@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from 'components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-import globalcss from './globalcss';
+import globalcss from './variables/globalcss';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
