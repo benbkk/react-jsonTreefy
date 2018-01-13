@@ -95,7 +95,7 @@
       "src",
       "test",
       "components",
-      "static"
+      "Static"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
