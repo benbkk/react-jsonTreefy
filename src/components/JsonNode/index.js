@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonValue from 'components/JsonValue';
@@ -6,6 +7,9 @@ import JsonArray from 'components/JsonArray';
 import JsonFunctionValue from 'components/JsonFunctionValue';
 import { getObjectType } from 'utils/objectTypes';
 
+/* ************************************* */
+/* ********      VARIABLES      ******** */
+/* ************************************* */
 // Prop types
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -36,6 +40,9 @@ const defaultProps = {
     deep: 0,
 };
 
+/* ************************************* */
+/* ********      COMPONENT      ******** */
+/* ************************************* */
 class JsonNode extends Component {
     constructor(props) {
         super(props);

@@ -22,7 +22,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     isCollapsed: PropTypes.func.isRequired,
     keyPath: PropTypes.array,
-    deep: PropTypes.number,
+    level: PropTypes.number,
     handleRemove: PropTypes.func,
     onUpdate: PropTypes.func.isRequired,
     onDeltaUpdate: PropTypes.func.isRequired,
@@ -43,7 +43,7 @@ const propTypes = {
 // Default props
 const defaultProps = {
     keyPath: [],
-    deep: 0,
+    level: 0,
     minusMenuElement: <span> - </span>,
     plusMenuElement: <span> + </span>,
 };
@@ -54,8 +54,8 @@ const defaultProps = {
 class JsonObject extends Component {
     constructor(props) {
         super(props);
-        const deep = props.deep + 1;
-        const keyPath = (deep === 0) ? [] : [
+        const level = props.level + 1;
+        const keyPath = (level === 0) ? [] : [
             ...props.keyPath,
             props.name,
         ];
@@ -63,8 +63,8 @@ class JsonObject extends Component {
             name: props.name,
             data: props.data,
             keyPath,
-            deep,
-            collapsed: props.isCollapsed(keyPath, deep, props.data),
+            level,
+            collapsed: props.isCollapsed(keyPath, level, props.data),
             addFormVisible: false,
         };
 
@@ -113,10 +113,10 @@ class JsonObject extends Component {
     }
 
     handleAddValueAdd({ key, newValue }) {
-        const { data, keyPath, deep } = this.state;
+        const { data, keyPath, level } = this.state;
         const { beforeAddAction } = this.props;
 
-        beforeAddAction(key, keyPath, deep, newValue).then(() => {
+        beforeAddAction(key, keyPath, level, newValue).then(() => {
             // Update data
             data[key] = newValue;
             this.setState({
@@ -131,7 +131,7 @@ class JsonObject extends Component {
             onDeltaUpdate({
                 type: ADD_DELTA_TYPE,
                 keyPath,
-                deep,
+                level,
                 key,
                 newValue,
             });
@@ -142,14 +142,14 @@ class JsonObject extends Component {
     handleRemoveValue(key) {
         return () => {
             const { beforeRemoveAction } = this.props;
-            const { data, keyPath, deep } = this.state;
+            const { data, keyPath, level } = this.state;
             const oldValue = data[key];
             // Before Remove Action
-            beforeRemoveAction(key, keyPath, deep, oldValue).then(() => {
+            beforeRemoveAction(key, keyPath, level, oldValue).then(() => {
                 const objType = getObjectType(oldValue);
                 const deltaUpdateResult = {
                     keyPath,
-                    deep,
+                    level,
                     key,
                     oldValue,
                 };
@@ -184,13 +184,13 @@ class JsonObject extends Component {
     handleEditValue({ key, value }) {
         return new Promise((resolve, reject) => {
             const { beforeUpdateAction } = this.props;
-            const { data, keyPath, deep } = this.state;
+            const { data, keyPath, level } = this.state;
 
             // Old value
             const oldValue = data[key];
 
             // Before update action
-            beforeUpdateAction(key, keyPath, deep, oldValue, value).then(() => {
+            beforeUpdateAction(key, keyPath, level, oldValue, value).then(() => {
                 // Update value
                 data[key] = value;
                 // Set state
@@ -204,7 +204,7 @@ class JsonObject extends Component {
                 onDeltaUpdate({
                     type: UPDATE_DELTA_TYPE,
                     keyPath,
-                    deep,
+                    level,
                     key,
                     newValue: value,
                     oldValue,
@@ -216,24 +216,15 @@ class JsonObject extends Component {
     }
 
     renderCollapsed() {
-        const { name, keyPath, deep, data } = this.state;
+        const { name, keyPath, level, data } = this.state;
         const { handleRemove, readOnly, dataType, getStyle, minusMenuElement } = this.props;
 
-        const { minus, collapsed } = getStyle(name, data, keyPath, deep, dataType);
+        const { minus, collapsed } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
         const collapseValue = ' {...}';
         const numberOfItems = keyList.length;
         const itemName = (numberOfItems > 1) ? 'keys' : 'key';
         let minusElement = null;
-        // Check if readOnly is activated
-        if (!readOnly(name, data, keyPath, deep, dataType)) {
-            const minusMenuLayout = React.cloneElement(minusMenuElement, {
-                onClick: handleRemove,
-                className: 'rejt-minus-menu',
-                style: minus,
-            });
-            minusElement = (deep !== 0) ? minusMenuLayout : null;
-        }
 
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<span className="rejt-collapsed">
@@ -246,7 +237,7 @@ class JsonObject extends Component {
     }
 
     renderNotCollapsed() {
-        const { name, data, keyPath, deep, addFormVisible } = this.state;
+        const { name, data, keyPath, level, addFormVisible } = this.state;
         const {
             isCollapsed,
             handleRemove,
@@ -266,19 +257,9 @@ class JsonObject extends Component {
             beforeUpdateAction,
             } = this.props;
 
-        const { minus, plus, addForm, ul, delimiter } = getStyle(name, data, keyPath, deep, dataType);
+        const { minus, plus, addForm, ul, delimiter } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
         let minusElement = null;
-        const readOnlyResult = readOnly(name, data, keyPath, deep, dataType);
-        // Check if readOnly is activated
-        if (!readOnlyResult) {
-            const minusMenuLayout = React.cloneElement(minusMenuElement, {
-                onClick: handleRemove,
-                className: 'rejt-minus-menu',
-                style: minus,
-            });
-            minusElement = (deep !== 0) ? minusMenuLayout : null;
-        }
 
         const list = keyList
             .map(key => <JsonNode
@@ -286,7 +267,7 @@ class JsonObject extends Component {
                 name={key}
                 data={data[key]}
                 keyPath={keyPath}
-                deep={deep}
+                level={level}
                 isCollapsed={isCollapsed}
                 handleRemove={this.handleRemoveValue(key)}
                 handleUpdateValue={this.handleEditValue}
@@ -311,25 +292,6 @@ class JsonObject extends Component {
 
         let menu = null;
         // Check if readOnly is activated
-        if (!readOnlyResult) {
-            const plusMenuLayout = React.cloneElement(plusMenuElement, {
-                onClick: this.handleAddMode,
-                className: 'rejt-plus-menu',
-                style: plus,
-            });
-            menu = addFormVisible ?
-                (<span className="rejt-add-form" style={addForm}><JsonAddValue
-                    handleAdd={this.handleAddValueAdd}
-                    handleCancel={this.handleAddValueCancel}
-                    addButtonElement={addButtonElement}
-                    cancelButtonElement={cancelButtonElement}
-                    inputElement={inputElement}
-                /></span>) :
-                (<span>
-                    {plusMenuLayout} {minusElement}
-                </span>);
-        }
-
         return (<span className="rejt-not-collapsed">
             <span className="rejt-not-collapsed-delimiter" style={delimiter}>{startObject}</span>
             <ul className="rejt-not-collapsed-list" style={ul}>
@@ -341,10 +303,10 @@ class JsonObject extends Component {
     }
 
     render() {
-        const { name, collapsed, data, keyPath, deep } = this.state;
+        const { name, collapsed, data, keyPath, level } = this.state;
         const { getStyle, dataType } = this.props;
         const value = collapsed ? this.renderCollapsed() : this.renderNotCollapsed();
-        const style = getStyle(name, data, keyPath, deep, dataType);
+        const style = getStyle(name, data, keyPath, level, dataType);
 
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (

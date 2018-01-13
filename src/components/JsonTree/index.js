@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonNode from 'components/JsonNode';
 import { value, object, array } from 'utils/styles';
-import { ADD_DELTA_TYPE, REMOVE_DELTA_TYPE, UPDATE_DELTA_TYPE } from 'utils/deltaTypes';
+// import { ADD_DELTA_TYPE, REMOVE_DELTA_TYPE, UPDATE_DELTA_TYPE } from 'utils/deltaTypes';
 import { getObjectType } from 'utils/objectTypes';
 
 /* ************************************* */
@@ -18,15 +18,7 @@ import { getObjectType } from 'utils/objectTypes';
 /* ************************************* */
 // Prop types
 const propTypes = {
-    data: PropTypes.any.isRequired,
-    rootName: PropTypes.string,
-    isCollapsed: PropTypes.func,
-    onFullyUpdate: PropTypes.func,
-    onDeltaUpdate: PropTypes.func,
-    readOnly: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.func,
-    ]),
+    
     getStyle: PropTypes.func,
     addButtonElement: PropTypes.element,
     cancelButtonElement: PropTypes.element,
@@ -70,14 +62,35 @@ const defaultProps = {
 /* ********      COMPONENT      ******** */
 /* ************************************* */
 class JsonTree extends Component {
+    static propTypes = {
+        data: PropTypes.any.isRequired,
+        rootName: PropTypes.string,
+        isCollapsed: PropTypes.func,
+        getStyle: PropTypes.func,
+    }
+
+    static defaultProps = {
+        rootName: 'root',
+        isCollapsed: (keyPath, deep) => (deep !== 0),
+        getStyle: (keyName, data, keyPath, deep, dataType) => {
+            switch (dataType) {
+                case 'Object':
+                case 'Error':
+                    return object;
+                case 'Array':
+                    return array;
+                default:
+                    return value;
+            }
+        },
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data,
+            data: {},
             rootName: props.rootName,
         };
-        // Bind
-        this.onUpdate = this.onUpdate.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -87,81 +100,28 @@ class JsonTree extends Component {
         });
     }
 
-    onUpdate(key, data) {
-        this.setState({
-            data,
-        });
-        // Call on fully update
-        const { onFullyUpdate } = this.props;
-        onFullyUpdate(data);
-    }
 
     render() {
         const { data, rootName } = this.state;
         const {
             isCollapsed,
-            onDeltaUpdate,
-            readOnly,
             getStyle,
-            addButtonElement,
-            cancelButtonElement,
-            editButtonElement,
-            inputElement,
-            textareaElement,
-            minusMenuElement,
-            plusMenuElement,
-            beforeRemoveAction,
-            beforeAddAction,
-            beforeUpdateAction,
             } = this.props;
 
         // Node type
         const dataType = getObjectType(data);
-        let node = null;
-        let readOnlyFunction = readOnly;
-        if (getObjectType(readOnly) === 'Boolean') {
-            readOnlyFunction = () => (readOnly);
-        }
-
-        if (dataType === 'Object' || dataType === 'Array') {
-            node = (<JsonNode
+        // if (dataType !== 'Object' || dataType !== 'Array') return <h3 className={'rejt-tree'}>{'Data must be either Array or Object!'}</h3>;
+        return (
+            <JsonNode
                 data={data}
                 name={rootName}
                 collapsed={false}
-                deep={-1}
+                level={-1}
                 isCollapsed={isCollapsed}
-                onUpdate={this.onUpdate}
-                onDeltaUpdate={onDeltaUpdate}
-                readOnly={readOnlyFunction}
                 getStyle={getStyle}
-                addButtonElement={addButtonElement}
-                cancelButtonElement={cancelButtonElement}
-                editButtonElement={editButtonElement}
-                inputElement={inputElement}
-                textareaElement={textareaElement}
-                minusMenuElement={minusMenuElement}
-                plusMenuElement={plusMenuElement}
-                beforeRemoveAction={beforeRemoveAction}
-                beforeAddAction={beforeAddAction}
-                beforeUpdateAction={beforeUpdateAction}
-            />);
-        } else {
-            node = 'Data must be an Array or Object';
-        }
-
-        return (<div className="rejt-tree">{node}</div>);
+            />
+        )
     }
 }
 
-// Add prop types
-JsonTree.propTypes = propTypes;
-// Add default props
-JsonTree.defaultProps = defaultProps;
-
-/* ************************************* */
-/* ********       EXPORTS       ******** */
-/* ************************************* */
 export default JsonTree;
-export { ADD_DELTA_TYPE };
-export { REMOVE_DELTA_TYPE };
-export { UPDATE_DELTA_TYPE };
