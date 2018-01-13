@@ -40,11 +40,7 @@ class JsonArray extends Component {
         this.renderNotCollapsed = this.renderNotCollapsed.bind(this);
     }
 
-    handleCollapseMode() {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    }
+    
 
     
     renderCollapsed() {
@@ -122,6 +118,12 @@ class JsonArray extends Component {
         );
         /* eslint-enable */
     }
+
+    handleCollapseMode() {
+      this.setState({
+          collapsed: !this.state.collapsed,
+      });
+  }
 }
 
 export default JsonArray;

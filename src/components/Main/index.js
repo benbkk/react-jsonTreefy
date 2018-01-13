@@ -44,37 +44,9 @@ class MainStage extends Component {
         this.handleReset = this.handleReset.bind(this);
     }
 
-    handleChange(event) {
-        const inputValue = event.target.value;
-        this.setState({
-            value: inputValue
-        });
-        console.log(this.state.value);
-    }
+    
 
-    handleSubmit() {
-        const {value} = this.state;
-        // Get data
-        const jsonString = value;
-
-        try {
-            const json = JSON.parse(jsonString);
-            this.setState({
-                json,
-                value: ''
-            });
-        } catch (e) {
-            // Nothing
-            console.error(e);
-        }
-    }
-
-    handleReset() {
-        this.setState({
-            json: Object.assign({}, defaultJson),
-            value: ''
-        });
-    }
+    
 
     render() {
         const {json} = this.state;
@@ -102,6 +74,38 @@ class MainStage extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleSubmit() {
+        const {value} = this.state;
+        // Get data
+        const jsonString = value;
+
+        try {
+            const json = JSON.parse(jsonString);
+            this.setState({
+                json,
+                value: ''
+            });
+        } catch (e) {
+            // Nothing
+            console.error(e);
+        }
+    }
+
+    handleChange(event) {
+        const inputValue = event.target.value;
+        this.setState({
+            value: inputValue
+        });
+        console.log(this.state.value);
+    }
+
+    handleReset() {
+        this.setState({
+            json: Object.assign({}, defaultJson),
+            value: ''
+        });
     }
 }
 

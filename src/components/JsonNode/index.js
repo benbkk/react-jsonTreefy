@@ -19,9 +19,6 @@ const propTypes = {
     level: PropTypes.number,
     handleRemove: PropTypes.func,
     handleUpdateValue: PropTypes.func,
-    onUpdate: PropTypes.func.isRequired,
-    onDeltaUpdate: PropTypes.func.isRequired,
-    readOnly: PropTypes.func.isRequired,
     getStyle: PropTypes.func.isRequired,
     addButtonElement: PropTypes.element,
     cancelButtonElement: PropTypes.element,
@@ -66,9 +63,7 @@ class JsonNode extends Component {
             isCollapsed,
             handleRemove,
             handleUpdateValue,
-            onUpdate,
-            onDeltaUpdate,
-            readOnly,
+           
             getStyle,
             addButtonElement,
             cancelButtonElement,
@@ -93,9 +88,6 @@ class JsonNode extends Component {
                     keyPath={keyPath}
                     level={level}
                     handleRemove={handleRemove}
-                    onUpdate={onUpdate}
-                    onDeltaUpdate={onDeltaUpdate}
-                    readOnly={readOnlyTrue}
                     dataType={dataType}
                     getStyle={getStyle}
                     addButtonElement={addButtonElement}
@@ -117,9 +109,6 @@ class JsonNode extends Component {
                     keyPath={keyPath}
                     level={level}
                     handleRemove={handleRemove}
-                    onUpdate={onUpdate}
-                    onDeltaUpdate={onDeltaUpdate}
-                    readOnly={readOnly}
                     dataType={dataType}
                     getStyle={getStyle}
                     addButtonElement={addButtonElement}
@@ -141,9 +130,6 @@ class JsonNode extends Component {
                     keyPath={keyPath}
                     level={level}
                     handleRemove={handleRemove}
-                    onUpdate={onUpdate}
-                    onDeltaUpdate={onDeltaUpdate}
-                    readOnly={readOnly}
                     dataType={dataType}
                     getStyle={getStyle}
                     addButtonElement={addButtonElement}
@@ -166,7 +152,6 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}
@@ -183,7 +168,6 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}
@@ -200,7 +184,6 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}
@@ -234,7 +217,7 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
+                    
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}
@@ -251,7 +234,7 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
+                    
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}
@@ -268,7 +251,7 @@ class JsonNode extends Component {
                     level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnly}
+                   
                     dataType={dataType}
                     getStyle={getStyle}
                     cancelButtonElement={cancelButtonElement}

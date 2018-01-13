@@ -14,9 +14,6 @@ const propTypes = {
     keyPath: PropTypes.array,
     level: PropTypes.number,
     handleRemove: PropTypes.func,
-    onUpdate: PropTypes.func.isRequired,
-    onDeltaUpdate: PropTypes.func.isRequired,
-    readOnly: PropTypes.func.isRequired,
     dataType: PropTypes.string,
     getStyle: PropTypes.func.isRequired,
     addButtonElement: PropTypes.element,
@@ -75,17 +72,13 @@ class JsonObject extends Component {
 
     
     
-    handleCollapseMode() {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    }
+
 
     
 
     renderCollapsed() {
         const { name, keyPath, level, data } = this.state;
-        const { handleRemove, readOnly, dataType, getStyle, minusMenuElement } = this.props;
+        const { handleRemove, dataType, getStyle, minusMenuElement } = this.props;
 
         const { minus, collapsed } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
@@ -162,6 +155,12 @@ class JsonObject extends Component {
         );
         /* eslint-enable */
     }
+
+    handleCollapseMode() {
+      this.setState({
+          collapsed: !this.state.collapsed,
+      });
+  }
 }
 
 // Add prop types
