@@ -52,11 +52,11 @@ module.exports = {
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
         components: paths.appComponents,
-        Static: paths.appStatic,
+        static: paths.appStatic,
         config: paths.appConfig,
         css: paths.appStyles,
-            variables: paths.appVariables,
-            utils: paths.appUtils,
+        variables: paths.appVariables,
+        utils: paths.appUtils,
     },
     plugins: [
         new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),

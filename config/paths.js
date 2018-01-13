@@ -61,7 +61,7 @@ module.exports = {
 
   appConfig: resolveApp('config'),
   appVariables: resolveApp('src/variables'),
-  appStyles: resolveApp('config/globalcss'),
+  appStyles: resolveApp('src/variables/globalcss'),
 
   testsSetup: resolveApp('src/setupTests.js'),
 
