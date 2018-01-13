@@ -16,7 +16,7 @@ const propTypes = {
     data: PropTypes.any,
     isCollapsed: PropTypes.func.isRequired,
     keyPath: PropTypes.array,
-    deep: PropTypes.number,
+    level: PropTypes.number,
     handleRemove: PropTypes.func,
     handleUpdateValue: PropTypes.func,
     onUpdate: PropTypes.func.isRequired,
@@ -37,7 +37,7 @@ const propTypes = {
 // Default props
 const defaultProps = {
     keyPath: [],
-    deep: 0,
+    level: 0,
 };
 
 /* ************************************* */
@@ -50,7 +50,7 @@ class JsonNode extends Component {
             data: props.data,
             name: props.name,
             keyPath: props.keyPath,
-            deep: props.deep,
+            level: props.level,
         };
     }
 
@@ -61,7 +61,7 @@ class JsonNode extends Component {
     }
 
     render() {
-        const { data, name, keyPath, deep } = this.state;
+        const { data, name, keyPath, level } = this.state;
         const {
             isCollapsed,
             handleRemove,
@@ -91,7 +91,7 @@ class JsonNode extends Component {
                     name={name}
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     onUpdate={onUpdate}
                     onDeltaUpdate={onDeltaUpdate}
@@ -115,7 +115,7 @@ class JsonNode extends Component {
                     name={name}
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     onUpdate={onUpdate}
                     onDeltaUpdate={onDeltaUpdate}
@@ -139,7 +139,7 @@ class JsonNode extends Component {
                     name={name}
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     onUpdate={onUpdate}
                     onDeltaUpdate={onDeltaUpdate}
@@ -163,7 +163,7 @@ class JsonNode extends Component {
                     value={`"${data}"`}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -180,7 +180,7 @@ class JsonNode extends Component {
                     value={data}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -197,7 +197,7 @@ class JsonNode extends Component {
                     value={data ? 'true' : 'false'}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -214,7 +214,7 @@ class JsonNode extends Component {
                     value={data.toISOString()}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnlyTrue}
@@ -231,7 +231,7 @@ class JsonNode extends Component {
                     value={'null'}
                     originalValue={'null'}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -248,7 +248,7 @@ class JsonNode extends Component {
                     value={'undefined'}
                     originalValue={'undefined'}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -265,7 +265,7 @@ class JsonNode extends Component {
                     value={data.toString()}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnly}
@@ -282,7 +282,7 @@ class JsonNode extends Component {
                     value={data.toString()}
                     originalValue={data}
                     keyPath={keyPath}
-                    deep={deep}
+                    level={level}
                     handleRemove={handleRemove}
                     handleUpdateValue={handleUpdateValue}
                     readOnly={readOnlyTrue}
