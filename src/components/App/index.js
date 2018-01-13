@@ -1,6 +1,6 @@
 import React from 'react';
-import AppHeader from 'static/AppHeader';
-import AppFooter from 'static/AppFooter';
+import AppHeader from 'components/static/AppHeader';
+import AppFooter from 'components/static/AppFooter';
 import Main from 'components/Main';
 
 const App = () => (
