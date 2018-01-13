@@ -70,31 +70,8 @@ class JsonObject extends Component {
         });
     }
 
-    onChildUpdate(childKey, childData) {
-        const { data, keyPath } = this.state;
-        // Update data
-        data[childKey] = childData;
-        // Put new data
-        this.setState({
-            data,
-        });
-        // Spread
-        const { onUpdate } = this.props;
-        const size = keyPath.length;
-        onUpdate(keyPath[size - 1], data);
-    }
 
-    handleAddMode() {
-        this.setState({
-            addFormVisible: true,
-        });
-    }
 
-    handleAddValueCancel() {
-        this.setState({
-            addFormVisible: false,
-        });
-    }
 
     
     
