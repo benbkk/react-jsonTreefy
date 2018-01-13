@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonNode from 'components/JsonNode';
-import JsonAddValue from 'components/JsonAddValue';
+// import JsonAddValue from 'components/JsonAddValue';
 import { getObjectType } from 'utils/objectTypes';
 /* ************************************* */
 /* ********      VARIABLES      ******** */

@@ -7,40 +7,19 @@ import JsonArray from 'components/JsonArray';
 import JsonFunctionValue from 'components/JsonFunctionValue';
 import { getObjectType } from 'utils/objectTypes';
 
-/* ************************************* */
-/* ********      VARIABLES      ******** */
-/* ************************************* */
-// Prop types
-const propTypes = {
-    name: PropTypes.string.isRequired,
-    data: PropTypes.any,
-    isCollapsed: PropTypes.func.isRequired,
-    keyPath: PropTypes.array,
-    level: PropTypes.number,
-    handleRemove: PropTypes.func,
-    handleUpdateValue: PropTypes.func,
-    getStyle: PropTypes.func.isRequired,
-    addButtonElement: PropTypes.element,
-    cancelButtonElement: PropTypes.element,
-    editButtonElement: PropTypes.element,
-    inputElement: PropTypes.element,
-    textareaElement: PropTypes.element,
-    minusMenuElement: PropTypes.element,
-    plusMenuElement: PropTypes.element,
-    beforeRemoveAction: PropTypes.func,
-    beforeAddAction: PropTypes.func,
-    beforeUpdateAction: PropTypes.func,
-};
-// Default props
-const defaultProps = {
-    keyPath: [],
-    level: 0,
-};
-
-/* ************************************* */
-/* ********      COMPONENT      ******** */
-/* ************************************* */
 class JsonNode extends Component {
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        data: PropTypes.any,
+        isCollapsed: PropTypes.func.isRequired,
+        keyPath: PropTypes.array,
+        level: PropTypes.number,
+        getStyle: PropTypes.func.isRequired,
+    }
+    static defaultProps = {
+        keyPath: [],
+        level: 0
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -61,23 +40,9 @@ class JsonNode extends Component {
         const { data, name, keyPath, level } = this.state;
         const {
             isCollapsed,
-            handleRemove,
-            handleUpdateValue,
-           
-            getStyle,
-            addButtonElement,
-            cancelButtonElement,
-            editButtonElement,
-            inputElement,
-            textareaElement,
-            minusMenuElement,
-            plusMenuElement,
-            beforeRemoveAction,
-            beforeAddAction,
-            beforeUpdateAction,
-            } = this.props;
-        const readOnlyTrue = () => (true);
-
+            getStyle
+        } = this.props;
+      
         const dataType = getObjectType(data);
         switch (dataType) {
             case 'Error':
@@ -87,19 +52,10 @@ class JsonNode extends Component {
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
+                    
                     dataType={dataType}
                     getStyle={getStyle}
-                    addButtonElement={addButtonElement}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    textareaElement={textareaElement}
-                    minusMenuElement={minusMenuElement}
-                    plusMenuElement={plusMenuElement}
-                    beforeRemoveAction={beforeRemoveAction}
-                    beforeAddAction={beforeAddAction}
-                    beforeUpdateAction={beforeUpdateAction}
+                  
                 />);
             case 'Object':
                 return (<JsonObject
@@ -108,19 +64,9 @@ class JsonNode extends Component {
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
                     dataType={dataType}
                     getStyle={getStyle}
-                    addButtonElement={addButtonElement}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    textareaElement={textareaElement}
-                    minusMenuElement={minusMenuElement}
-                    plusMenuElement={plusMenuElement}
-                    beforeRemoveAction={beforeRemoveAction}
-                    beforeAddAction={beforeAddAction}
-                    beforeUpdateAction={beforeUpdateAction}
+                    
                 />);
             case 'Array':
                 return (<JsonArray
@@ -129,19 +75,10 @@ class JsonNode extends Component {
                     isCollapsed={isCollapsed}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
+
                     dataType={dataType}
                     getStyle={getStyle}
-                    addButtonElement={addButtonElement}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    textareaElement={textareaElement}
-                    minusMenuElement={minusMenuElement}
-                    plusMenuElement={plusMenuElement}
-                    beforeRemoveAction={beforeRemoveAction}
-                    beforeAddAction={beforeAddAction}
-                    beforeUpdateAction={beforeUpdateAction}
+                    
                 />);
             case 'String':
                 return (<JsonValue
@@ -150,14 +87,10 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
+
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                    
                 />);
             case 'Number':
                 return (<JsonValue
@@ -166,14 +99,10 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
+                   
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                   
                 />);
             case 'Boolean':
                 return (<JsonValue
@@ -182,14 +111,11 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
+ 
+                   
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                   
                 />);
             case 'Date':
                 return (<JsonValue
@@ -198,15 +124,11 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnlyTrue}
+
+                   
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                   
                 />);
             case 'Null':
                 return (<JsonValue
@@ -215,15 +137,10 @@ class JsonNode extends Component {
                     originalValue={'null'}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
-                    
+                   
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                   
                 />);
             case 'Undefined':
                 return (<JsonValue
@@ -232,15 +149,10 @@ class JsonNode extends Component {
                     originalValue={'undefined'}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
                     
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                    
                 />);
             case 'Function':
                 return (<JsonFunctionValue
@@ -249,15 +161,11 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
+                    
                    
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    textareaElement={textareaElement}
-                    minusMenuElement={minusMenuElement}
+                   
                 />);
             case 'Symbol':
                 return (<JsonValue
@@ -266,15 +174,10 @@ class JsonNode extends Component {
                     originalValue={data}
                     keyPath={keyPath}
                     level={level}
-                    handleRemove={handleRemove}
-                    handleUpdateValue={handleUpdateValue}
-                    readOnly={readOnlyTrue}
+                   
                     dataType={dataType}
                     getStyle={getStyle}
-                    cancelButtonElement={cancelButtonElement}
-                    editButtonElement={editButtonElement}
-                    inputElement={inputElement}
-                    minusMenuElement={minusMenuElement}
+                    
                 />);
             default:
                 return null;
@@ -282,12 +185,4 @@ class JsonNode extends Component {
     }
 }
 
-// Add prop types
-JsonNode.propTypes = propTypes;
-// Add default props
-JsonNode.defaultProps = defaultProps;
-
-/* ************************************* */
-/* ********       EXPORTS       ******** */
-/* ************************************* */
 export default JsonNode;

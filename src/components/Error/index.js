@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 
 
-class ErrorBoundaries extends Component {
+class Error extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            error: false
+        }
+    }
+
+    componentDidCatch() {
+        
     }
 }
