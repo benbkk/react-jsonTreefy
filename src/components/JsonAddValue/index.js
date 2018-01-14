@@ -1,40 +1,23 @@
-/*
- * Author: Alexandre Havrileck (Oxyno-zeta)
- * Date: 22/10/16
- * Licence: See Readme
- */
-/* ************************************* */
-/* ********       IMPORTS       ******** */
-/* ************************************* */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import parse from 'utils/parse';
 
-/* ************************************* */
-/* ********      VARIABLES      ******** */
-/* ************************************* */
-// Prop types
-const propTypes = {
-    handleAdd: PropTypes.func.isRequired,
-    handleCancel: PropTypes.func.isRequired,
-    onlyValue: PropTypes.bool,
-    addButtonElement: PropTypes.element,
-    cancelButtonElement: PropTypes.element,
-    inputElement: PropTypes.element,
-};
-// Default props
-const defaultProps = {
-    onlyValue: false,
-    addButtonElement: <button>+</button>,
-    cancelButtonElement: <button>c</button>,
-    inputElement: <input />,
-};
-
-/* ************************************* */
-/* ********      COMPONENT      ******** */
-/* ************************************* */
 class JsonAddValue extends Component {
+    static propTypes = {
+        handleAdd: PropTypes.func.isRequired,
+        handleCancel: PropTypes.func.isRequired,
+        onlyValue: PropTypes.bool,
+        addButtonElement: PropTypes.element,
+        cancelButtonElement: PropTypes.element,
+        inputElement: PropTypes.element,
+    }
+    static defaultProps = {
+        onlyValue: false,
+        addButtonElement: <button>+</button>,
+        cancelButtonElement: <button>c</button>,
+        inputElement: <input />,
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -123,12 +106,4 @@ class JsonAddValue extends Component {
     }
 }
 
-// Add prop types
-JsonAddValue.propTypes = propTypes;
-// Add default props
-JsonAddValue.defaultProps = defaultProps;
-
-/* ************************************* */
-/* ********       EXPORTS       ******** */
-/* ************************************* */
 export default JsonAddValue;

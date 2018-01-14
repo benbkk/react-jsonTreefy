@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
+import { flatten } from 'utils';
 
-// Prop types
-const propTypes = {};
-const defaultProps = {};
 const defaultJson = {
     error: new Error('error'),
     func: () => {
@@ -94,7 +92,7 @@ class MainStage extends Component {
     }
 
     handleChange(event) {
-        const inputValue = event.target.value;
+        let inputValue = event.target.value;
         this.setState({
             value: inputValue
         });

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import parse from 'utils/parse';
-import { isComponentWillChange } from 'utils/objectTypes';
 
 class JsonValue extends Component {
     static propTypes = {
@@ -11,8 +10,7 @@ class JsonValue extends Component {
         keyPath: PropTypes.array,
         level: PropTypes.number,
         dataType: PropTypes.string,
-        getStyle: PropTypes.func.isRequired,
-        readOnly: PropTypes.func.isRequired,
+        getStyle: PropTypes.func.isRequired
     }
     constructor(props) {
         super(props);
@@ -31,7 +29,6 @@ class JsonValue extends Component {
     render() {
         const { name, value, keyPath, level } = this.state;
         const {
-            readOnly,
             dataType,
             getStyle,
             } = this.props;

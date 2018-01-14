@@ -1,5 +1,4 @@
-export const flatten = arr => arr.reduce(
-    (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
+export const flatten = arr => arr.reduce((a, b) => a.concat(b), []);
 
 export const objectType = (obj) => {
     const type = Object.prototype.toString.call(obj).slice(8, -1);

@@ -11,7 +11,6 @@ class JsonArray extends Component {
         isCollapsed: PropTypes.func.isRequired,
         keyPath: PropTypes.array,
         level: PropTypes.number,
-        readOnly: PropTypes.func.isRequired,
         dataType: PropTypes.string,
         getStyle: PropTypes.func.isRequired,
     }
@@ -45,7 +44,7 @@ class JsonArray extends Component {
     
     renderCollapsed() {
         const { name, data, keyPath, level } = this.state;
-        const { readOnly, getStyle, dataType } = this.props;
+        const { getStyle, dataType } = this.props;
 
         const { collapsed } = getStyle(name, data, keyPath, level, dataType);
         const collapseValue = ' [...]';

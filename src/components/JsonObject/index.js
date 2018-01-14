@@ -1,44 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonNode from 'components/JsonNode';
-// import JsonAddValue from 'components/JsonAddValue';
 import { getObjectType } from 'utils/objectTypes';
-/* ************************************* */
-/* ********      VARIABLES      ******** */
-/* ************************************* */
-// Prop types
-const propTypes = {
-    data: PropTypes.object.isRequired,
-    name: PropTypes.string.isRequired,
-    isCollapsed: PropTypes.func.isRequired,
-    keyPath: PropTypes.array,
-    level: PropTypes.number,
-    handleRemove: PropTypes.func,
-    dataType: PropTypes.string,
-    getStyle: PropTypes.func.isRequired,
-    addButtonElement: PropTypes.element,
-    cancelButtonElement: PropTypes.element,
-    editButtonElement: PropTypes.element,
-    inputElement: PropTypes.element,
-    textareaElement: PropTypes.element,
-    minusMenuElement: PropTypes.element,
-    plusMenuElement: PropTypes.element,
-    beforeRemoveAction: PropTypes.func,
-    beforeAddAction: PropTypes.func,
-    beforeUpdateAction: PropTypes.func,
-};
-// Default props
-const defaultProps = {
-    keyPath: [],
-    level: 0,
-    minusMenuElement: <span> - </span>,
-    plusMenuElement: <span> + </span>,
-};
 
 /* ************************************* */
 /* ********      COMPONENT      ******** */
 /* ************************************* */
 class JsonObject extends Component {
+    static propTypes = {
+        data: PropTypes.object.isRequired,
+        name: PropTypes.string.isRequired,
+        isCollapsed: PropTypes.func.isRequired,
+        keyPath: PropTypes.array,
+        level: PropTypes.number,
+        dataType: PropTypes.string,
+        getStyle: PropTypes.func.isRequired,
+    }
+    static defaultProps = {
+        keyPath: [],
+        level: 0
+    }
     constructor(props) {
         super(props);
         const level = props.level + 1;
@@ -52,7 +33,6 @@ class JsonObject extends Component {
             keyPath,
             level,
             collapsed: props.isCollapsed(keyPath, level, props.data),
-            addFormVisible: false,
         };
 
         // Bind
@@ -67,18 +47,9 @@ class JsonObject extends Component {
         });
     }
 
-
-
-
-    
-    
-
-
-    
-
     renderCollapsed() {
         const { name, keyPath, level, data } = this.state;
-        const { handleRemove, dataType, getStyle, minusMenuElement } = this.props;
+        const { dataType, getStyle } = this.props;
 
         const { minus, collapsed } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
@@ -92,13 +63,12 @@ class JsonObject extends Component {
             <span className="rejt-collapsed-text" style={collapsed} onClick={this.handleCollapseMode}>
                 {collapseValue} {numberOfItems} {itemName}
             </span>
-            {minusElement}
         </span>);
         /* eslint-enable */
     }
 
     renderNotCollapsed() {
-        const { name, data, keyPath, level, addFormVisible } = this.state;
+        const { name, data, keyPath, level } = this.state;
         const {
             isCollapsed,
             getStyle,
@@ -162,13 +132,4 @@ class JsonObject extends Component {
       });
   }
 }
-
-// Add prop types
-JsonObject.propTypes = propTypes;
-// Add default props
-JsonObject.defaultProps = defaultProps;
-
-/* ************************************* */
-/* ********       EXPORTS       ******** */
-/* ************************************* */
 export default JsonObject;
