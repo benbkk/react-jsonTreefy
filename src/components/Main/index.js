@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
-import { flatten } from 'utils';
+import { flatten, reorderItems } from 'utils';
 
 const defaultJson = {
     error: new Error('error'),
@@ -55,9 +55,11 @@ class MainStage extends Component {
         return (
             <div>
                 <div style={style4}>
+                    <pre>
                     <JsonTree
                         data={json}
                     />
+                    </pre>
                 </div>
                 <div style={style4}>
                     <textarea 
@@ -80,7 +82,11 @@ class MainStage extends Component {
         const jsonString = value;
 
         try {
-            const json = JSON.parse(jsonString);
+            let json = JSON.parse(jsonString);
+            json = flatten(Object.values(json));
+            json = reorderItems(json, 'parent_id');
+
+            console.log(json);
             this.setState({
                 json,
                 value: ''
@@ -96,7 +102,6 @@ class MainStage extends Component {
         this.setState({
             value: inputValue
         });
-        console.log(this.state.value);
     }
 
     handleReset() {

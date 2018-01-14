@@ -34,8 +34,8 @@ const propTypes = {
 // Default props
 const defaultProps = {
     rootName: 'root',
-    isCollapsed: (keyPath, deep) => (deep !== 0),
-    getStyle: (keyName, data, keyPath, deep, dataType) => {
+    isCollapsed: (keyPath, level) => (level !== 0),
+    getStyle: (keyName, data, keyPath, level, dataType) => {
         switch (dataType) {
             case 'Object':
             case 'Error':
@@ -47,14 +47,14 @@ const defaultProps = {
         }
     },
     /* eslint-disable no-unused-vars */
-    readOnly: (keyName, data, keyPath, deep, dataType) => false,
+    readOnly: (keyName, data, keyPath, level, dataType) => false,
     onFullyUpdate: (data) => {
     },
-    onDeltaUpdate: (type, keyPath, deep, key, newValue, oldValue) => {
+    onDeltaUpdate: (type, keyPath, level, key, newValue, oldValue) => {
     },
-    beforeRemoveAction: (key, keyPath, deep, oldValue) => new Promise(resolve => resolve()),
-    beforeAddAction: (key, keyPath, deep, newValue) => new Promise(resolve => resolve()),
-    beforeUpdateAction: (key, keyPath, deep, oldValue, newValue) => new Promise(resolve => resolve()),
+    beforeRemoveAction: (key, keyPath, level, oldValue) => new Promise(resolve => resolve()),
+    beforeAddAction: (key, keyPath, level, newValue) => new Promise(resolve => resolve()),
+    beforeUpdateAction: (key, keyPath, level, oldValue, newValue) => new Promise(resolve => resolve()),
     /* eslint-enable */
 };
 
@@ -71,8 +71,8 @@ class JsonTree extends Component {
 
     static defaultProps = {
         rootName: 'root',
-        isCollapsed: (keyPath, deep) => (deep !== 0),
-        getStyle: (keyName, data, keyPath, deep, dataType) => {
+        isCollapsed: (keyPath, level) => (level !== 0),
+        getStyle: (keyName, data, keyPath, level, dataType) => {
             switch (dataType) {
                 case 'Object':
                 case 'Error':
@@ -115,7 +115,7 @@ class JsonTree extends Component {
             <JsonNode
                 data={data}
                 name={rootName}
-                collapsed={false}
+                collapsed={true}
                 level={-1}
                 isCollapsed={isCollapsed}
                 getStyle={getStyle}

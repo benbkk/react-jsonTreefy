@@ -1,4 +1,4 @@
-export const flatten = arr => arr.reduce((a, b) => a.concat(b), []);
+export const flatten = arr => arr.reduce((acc, curr) => acc.concat(curr), []);
 
 export const objectType = (obj) => {
     const type = Object.prototype.toString.call(obj).slice(8, -1);
@@ -7,6 +7,26 @@ export const objectType = (obj) => {
     }
     return type;
 }
+
+export const reorderItems = (arr, property) => {    
+    return arr.reduce((acc, cur) => {
+        if (!acc[cur[property]]) { 
+            acc[cur[property]] = []; 
+        }
+        
+        acc[cur[property]].push(cur);
+        return acc;
+    },{});
+}
+
+    /* return arr.reduce((result, item) => {
+        var key = Object.keys(item)[0]; // first property: a, b, c
+        var value = item[key];
+        var obj = {};
+        obj[value] = key;
+        result.push(obj);
+        return result
+    }, []); */
 
 // Returns the "n Items" string for this node,
 // generating and caching it if it hasn't been created yet.

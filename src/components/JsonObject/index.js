@@ -51,7 +51,7 @@ class JsonObject extends Component {
         const { name, keyPath, level, data } = this.state;
         const { dataType, getStyle } = this.props;
 
-        const { minus, collapsed } = getStyle(name, data, keyPath, level, dataType);
+        const { collapsed } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
         const collapseValue = ' {...}';
         const numberOfItems = keyList.length;
@@ -76,7 +76,7 @@ class JsonObject extends Component {
            
             } = this.props;
 
-        const { minus, plus, addForm, ul, delimiter } = getStyle(name, data, keyPath, level, dataType);
+        const { ul, delimiter } = getStyle(name, data, keyPath, level, dataType);
         const keyList = Object.getOwnPropertyNames(data);
         let minusElement = null;
 
