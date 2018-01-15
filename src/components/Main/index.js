@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
-import { flatten, reorderItems } from 'utils';
+import { flatten, reorderItems, replacer } from 'utils';
 import merge from 'deepmerge';
 
 const defaultJson = {
@@ -87,18 +87,23 @@ class MainStage extends Component {
         let children = books.map(parent => {
             return {
                 id: parent.id,
-                children: books.filter(book => book.parent_id === parent.id)
+                title: parent.title,
+                level: parent.level,
+                children: books.filter(book => book.parent_id === parent.id),
+                parent_id: parent.parent_id
             }    
         });
         console.log(children);
-        console.log(json);
+        
     
 
         function extend(obj, src) {
             Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
             return obj;
         }
-        
+
+        json = JSON.parse(JSON.stringify(Object.assign({}, children), null, 3));
+        console.log(json);
 
         try {
             this.setState({

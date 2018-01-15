@@ -27,15 +27,7 @@ export const mergeObjects = (obj, src) => {
 }
 
 export const replacer = (key, value) => {
-    reorderItems()
-
-    if (key === 'children') {
-        value = [
-            {'id':'1', 'name': 'name'}, {'id': '2', 'name': 'namee'}, {'id': 
-        '3', 'name': 'nama'}
-        ]
-    }
-    return value;
+   
 }
 
     /* return arr.reduce((result, item) => {
