@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
 import { flatten, reorderItems } from 'utils';
+import merge from 'deepmerge';
 
 const defaultJson = {
     error: new Error('error'),
@@ -80,13 +81,26 @@ class MainStage extends Component {
         const {value} = this.state;
         // Get data
         const jsonString = value;
+        let json = JSON.parse(jsonString);
+        json = flatten(Object.values(json));
+        let books = Object.assign([], json);
+        let children = books.map(parent => {
+            return {
+                id: parent.id,
+                children: books.filter(book => book.parent_id === parent.id)
+            }    
+        });
+        console.log(children);
+        console.log(json);
+    
+
+        function extend(obj, src) {
+            Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+            return obj;
+        }
+        
 
         try {
-            let json = JSON.parse(jsonString);
-            json = flatten(Object.values(json));
-            json = reorderItems(json, 'parent_id');
-
-            console.log(json);
             this.setState({
                 json,
                 value: ''

@@ -10,6 +10,8 @@ export const objectType = (obj) => {
 
 export const reorderItems = (arr, property) => {    
     return arr.reduce((acc, cur) => {
+        console.log(arr);
+        console.log(cur);
         if (!acc[cur[property]]) { 
             acc[cur[property]] = []; 
         }
@@ -17,6 +19,23 @@ export const reorderItems = (arr, property) => {
         acc[cur[property]].push(cur);
         return acc;
     },{});
+}
+
+export const mergeObjects = (obj, src) => {
+    Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+    return obj;
+}
+
+export const replacer = (key, value) => {
+    reorderItems()
+
+    if (key === 'children') {
+        value = [
+            {'id':'1', 'name': 'name'}, {'id': '2', 'name': 'namee'}, {'id': 
+        '3', 'name': 'nama'}
+        ]
+    }
+    return value;
 }
 
     /* return arr.reduce((result, item) => {
