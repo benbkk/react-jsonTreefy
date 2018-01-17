@@ -46,17 +46,17 @@ class JsonNode extends Component {
         const dataType = getObjectType(data);
         switch (dataType) {
             case 'Error':
-                return (<JsonObject
-                    data={data}
-                    name={name}
-                    isCollapsed={isCollapsed}
-                    keyPath={keyPath}
-                    level={level}
-                    
-                    dataType={dataType}
-                    getStyle={getStyle}
-                  
-                />);
+                return (
+                    <JsonObject
+                        data={data}
+                        name={name}
+                        isCollapsed={isCollapsed}
+                        keyPath={keyPath}
+                        level={level}
+                        dataType={dataType}
+                        getStyle={getStyle}
+                    />
+            );
             case 'Object':
                 return (<JsonObject
                     data={data}

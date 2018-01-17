@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { HotKeys } from 'react-hotkeys';
 import parse from 'utils/parse';
 
 class JsonValue extends Component {
@@ -32,23 +31,16 @@ class JsonValue extends Component {
             dataType,
             getStyle,
             } = this.props;
-
+ 
         const style = getStyle(name, value, keyPath, level, dataType);
-        let result = (
-            <span className="rejt-value" style={style.value}>
-                {value}
-            </span>
-        );
-
-        const handlers = {
-            esc: this.handleCancelEdit,
-            enter: this.handleEdit,
-        };
 
         return (
-            <HotKeys className="rejt-value-node" component={'li'} style={style.li} handlers={handlers}>
-                <span className="rejt-name" style={style.name}>{name} : </span>{result}
-            </HotKeys>
+            <li className="rejt-value-node" component={'li'} style={style.li}>
+                <span className="rejt-name" style={style.name}>{name} : </span>
+                <span className="rejt-value" style={style.value}>
+                    {value}
+                </span>
+            </li>
         );
     }
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
-import { flatten, reorderItems, replacer } from 'utils';
-import merge from 'deepmerge';
+import { flatten, createTree } from 'utils';
 
 const defaultJson = {
     error: new Error('error'),
@@ -33,19 +32,14 @@ class MainStage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            json: Object.assign({}, defaultJson), // _.cloneDeep(defaultJson),
+            json: Object.assign({}, defaultJson),
             value: ''
         };
-        // Bind
-        
+      
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleReset = this.handleReset.bind(this);
     }
-
-    
-
-    
 
     render() {
         const {json} = this.state;
@@ -57,16 +51,14 @@ class MainStage extends Component {
             <div>
                 <div style={style4}>
                     <pre>
-                    <JsonTree
-                        data={json}
-                    />
+                        <JsonTree data={json}/>
                     </pre>
                 </div>
                 <div style={style4}>
                     <textarea 
                         value={this.state.value}
                         onChange={this.handleChange}
-                        rows="15" cols="40" />
+                    />
 
                     <div>
                         <button onClick={this.handleSubmit}>Submit</button>
@@ -79,41 +71,13 @@ class MainStage extends Component {
 
     handleSubmit() {
         const {value} = this.state;
-        // Get data
-        const jsonString = value;
-        let json = JSON.parse(jsonString);
-        json = flatten(Object.values(json));
-        let books = Object.assign([], json);
-        let children = books.map(parent => {
-            return {
-                id: parent.id,
-                title: parent.title,
-                level: parent.level,
-                children: books.filter(book => book.parent_id === parent.id),
-                parent_id: parent.parent_id
-            }    
-        });
-        console.log(children);
+        let json = JSON.parse(value);
+        json = flatten(Object.assign([], json));
+        json = createTree(json, 'parent_id');
         
-    
-
-        function extend(obj, src) {
-            Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
-            return obj;
-        }
-
-        json = JSON.parse(JSON.stringify(Object.assign({}, children), null, 3));
-        console.log(json);
-
-        try {
-            this.setState({
-                json,
-                value: ''
-            });
-        } catch (e) {
-            // Nothing
-            console.error(e);
-        }
+        this.setState({
+            json,
+        });
     }
 
     handleChange(event) {

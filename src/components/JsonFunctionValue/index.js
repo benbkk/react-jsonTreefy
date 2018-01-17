@@ -39,25 +39,15 @@ class JsonFunctionValue extends Component {
             } = this.props;
 
         const style = getStyle(name, value, keyPath, level, dataType);
-        let result = null;
-        /* eslint-disable jsx-a11y/no-static-element-interactions */
-        result = (
-            <span
-                className="rejt-value" style={style.value}>
-            >
-                {value}
-            </span>
-        );
+       
 
-        const handlers = {
-            esc: this.handleCancelEdit,
-            enter: this.handleEdit,
-        };
+       
 
         return (
-            <HotKeys component={'li'} className="rejt-function-value-node" style={style.li} handlers={handlers}>
-                <span className="rejt-name" style={style.name}>{name} : </span>{result}
-            </HotKeys>
+            <li className="rejt-function-value-node" style={style.li}>
+                <span className="rejt-name" style={style.name}>{name} : </span>
+                <span className="rejt-value" style={style.value}>{value}</span>
+            </li>
         );
     }
 }

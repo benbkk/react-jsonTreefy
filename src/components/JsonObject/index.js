@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import JsonNode from 'components/JsonNode';
 import { getObjectType } from 'utils/objectTypes';
 
-/* ************************************* */
-/* ********      COMPONENT      ******** */
-/* ************************************* */
 class JsonObject extends Component {
     static propTypes = {
         data: PropTypes.object.isRequired,
@@ -23,10 +20,12 @@ class JsonObject extends Component {
     constructor(props) {
         super(props);
         const level = props.level + 1;
-        const keyPath = (level === 0) ? [] : [
-            ...props.keyPath,
-            props.name,
-        ];
+        const keyPath = level === 0 ? 
+            [] : 
+            [
+                ...props.keyPath,
+                props.name,
+            ];
         this.state = {
             name: props.name,
             data: props.data,
