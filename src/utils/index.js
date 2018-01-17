@@ -1,46 +1,16 @@
-export const flatten = arr => arr.reduce((acc, curr) => acc.concat(curr), []);
+export const flatten = arr => arr.reduce((acc, value) => acc.concat(value), []);
 
-export const objectType = (obj) => {
-    const type = Object.prototype.toString.call(obj).slice(8, -1);
-    if (type === 'Object' && typeof obj[Symbol.iterator] === 'function') {
-        return 'Iterable';
-    }
-    return type;
-}
 
-export const reorderItems = (arr, property) => {    
-    return arr.reduce((acc, cur) => {
-        console.log(arr);
-        console.log(cur);
-        if (!acc[cur[property]]) { 
-            acc[cur[property]] = []; 
-        }
-        
-        acc[cur[property]].push(cur);
-        return acc;
-    },{});
-}
+export const createTree = (arr, prop) => arr.reduce((acc, value) => {
+    acc.i[value.id] = value;
+    value.children = [];
+    value[prop] === null ?
+        acc.result.push(value) :
+        acc.i[value[prop]].children.push(value);
+    return acc;
+}, { i:{}, result: [] }).result;
 
-export const mergeObjects = (obj, src) => {
-    Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
-    return obj;
-}
 
-export const replacer = (key, value) => {
-   
-}
-
-    /* return arr.reduce((result, item) => {
-        var key = Object.keys(item)[0]; // first property: a, b, c
-        var value = item[key];
-        var obj = {};
-        obj[value] = key;
-        result.push(obj);
-        return result
-    }, []); */
-
-// Returns the "n Items" string for this node,
-// generating and caching it if it hasn't been created yet.
 export const createItemString = data => {
     const len = Object.getOwnPropertyNames(data).length;
     return `${len} ${len !== 1 ? 'keys' : 'key'}`;
