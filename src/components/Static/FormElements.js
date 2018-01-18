@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { palette } from 'variables';
 
 const FormWrapper = styled.form`
     position: relative;
@@ -43,6 +44,8 @@ export const TextArea = props => (
         <InputLabel
             className={props.labelIsHidden ? 'SR' : 'label-textarea'}
             htmlFor={props.id}
+            isHidden={props.labelIsHidden}
+            label={props.label}
         >
             {props.label}
         </InputLabel>
@@ -51,7 +54,6 @@ export const TextArea = props => (
             name={props.name}
             placeholder={props.placeholder}
             onChange={props.onChange}
-            {...props}
         />
     </TextAreaWrapper>
 );

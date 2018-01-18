@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { HotKeys } from 'react-hotkeys';
+// import { HotKeys } from 'react-hotkeys';
 import parse from 'utils/parse';
 import { isComponentWillChange } from 'utils/objectTypes';
 

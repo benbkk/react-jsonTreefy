@@ -6,9 +6,9 @@ import Main from 'components/Main';
 const App = () => (
     <div>
         <AppHeader />
-        <Main />
+            <Main />
         <AppFooter />
-    </div>
+    </div>    
 )
 
 export default App;

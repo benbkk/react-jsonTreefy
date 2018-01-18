@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
+import { MainStage, ButtonGroup } from './MainStage';
+import { TextArea } from 'static/FormElements';
 import { flatten, createTree } from 'utils';
+import { text } from 'variables';
 
 const defaultJson = {
     error: new Error('error'),
-    func: () => {
-        console.log('test');
-    },
+    func: () => console.log('test'),
     text: 'text',
     int: 100,
     boolean: true,
@@ -24,16 +25,17 @@ const defaultJson = {
         3,
         {
             string: 'test',
-        },
-    ],
-};
+        }
+    ]
+}
+    
 
-class MainStage extends Component {
+class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            json: Object.assign({}, defaultJson),
-            value: ''
+            json: defaultJson,
+            value: {},
         };
       
         this.handleChange = this.handleChange.bind(this);
@@ -48,30 +50,30 @@ class MainStage extends Component {
             minWidth: '200px',
         };
         return (
-            <div>
-                <div style={style4}>
-                    <pre>
-                        <JsonTree data={json}/>
-                    </pre>
-                </div>
-                <div style={style4}>
-                    <textarea 
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                    />
-
-                    <div>
-                        <button onClick={this.handleSubmit}>Submit</button>
-                        <button onClick={this.handleReset}>Default</button>
-                    </div>
-                </div>
-            </div>
+            <MainStage>
+                <pre>
+                    <JsonTree data={json}/>
+                </pre>
+                <TextArea
+                    id={'textAreaId'}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    placeholder={text.textAreaPlaceholder}
+                    className={'input-textarea'}
+                    label={text.textAreaPlaceholder}
+                    labelIsHidden={true}
+                />
+                <ButtonGroup className={'action-buttons'}>
+                    <button onClick={this.handleSubmit}>Submit</button>
+                    <button onClick={this.handleReset}>Default</button>
+                </ButtonGroup>    
+            </MainStage>
         );
     }
 
     handleSubmit() {
-        const {value} = this.state;
-        let json = JSON.parse(value);
+        let {value, json} = this.state;
+        json = JSON.parse(value);
         json = flatten(Object.assign([], json));
         json = createTree(json, 'parent_id');
         
@@ -89,10 +91,10 @@ class MainStage extends Component {
 
     handleReset() {
         this.setState({
-            json: Object.assign({}, defaultJson),
-            value: ''
+            json: Object.assign([], defaultJson),
+            value: JSON.stringify(defaultJson, null, 3)
         });
     }
 }
 
-export default MainStage;
+export default Main;

@@ -135,7 +135,51 @@ module.exports = {
                 )
             },
             {
-                loader: require.resolve('file-loader'),
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                    { 
+                        'loader': 'file-loader',
+                        'options': {
+                            name: '[name].[chunkhash:8].[ext]',
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: {
+                            progressive: true,
+                            quality: 75,
+                        },
+                        optipng: {
+                            enabled: false,
+                        },
+                        pngquant: {
+                            quality: '65-90',
+                            speed: 4
+                        },
+                        gifsicle: {
+                            interlaced: false
+                        },
+                        webp: {
+                            quality: 75
+                        }
+                    },
+                },
+            ] 
+        },
+        {
+            test: /\.(eot|svg|ttf|woff|woff2)$/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'fonts/[name].[ext]',
+                    },
+                },  
+            ],
+        },
+        {
+            loader: require.resolve('file-loader'),
                 exclude: [/\.js$/, /\.html$/, /\.json$/],
                 options: {
                     name: 'static/media/[name].[hash:8].[ext]',

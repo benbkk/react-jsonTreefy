@@ -1,15 +1,68 @@
 import { injectGlobal } from 'styled-components';
+import { family, palette } from 'variables';
 
 export default injectGlobal`
+@font-face {
+    font-family:'CircularStd-Bold';
+    src:url('fonts/circular-bold.woff2') format('woff2'),
+        url('fonts/circular-bold.woff') format('woff'),
+        url('circular-bold.otf') format('opentype');
+    font-style:normal;
+    font-weight:400;
+    font-smoothing: antialiased;
+}
+
+
+@font-face {
+    font-family:'CircularStd-Book';
+    src:url('fonts/circular-book.woff2') format('woff2'),
+        url('fonts/circular-book.woff') format('woff'),
+        url('fonts/circular-book.otf') format('opentype');
+    font-style:normal;
+    font-weight:400;
+    font-smoothing: antialiased;
+}
+
+
+@font-face {
+    font-family:'CircularStd-Medium';
+    src:url('fonts/circular-medium.woff2') format('woff2'),
+        url('fonts/circular-medium.woff') format('woff'),
+        url('fonts/circular-medium.otf') format('opentype');
+    font-style:normal;
+    font-weight:400;
+    font-smoothing: antialiased;
+}
+
+    * {
+        box-sizing: border-box;
+    }
 
     html {
         line-height: 1.15;
         -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%
+        -webkit-text-size-adjust: 100%;
+        min-height: 100vh;
     }
     body {
-        margin: 0
+        margin: 0;
+        font-family: ${family.book};
+        min-height: inherit;
     }
+
+    div#root {
+        min-height: inherit;
+        overflow: hidden;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+
+        & > div {
+            min-height: inherit;
+        }
+    }
+
     article,aside,footer,header,nav,section {
         display: block
     }
@@ -87,10 +140,11 @@ export default injectGlobal`
         overflow: hidden
     }
     button,input,optgroup,select,textarea {
-        font-family: sans-serif;
+        font-family: ${family.book};
         font-size: 100%;
         line-height: 1.15;
-        margin: 0
+        margin: 0;
+        padding: 12px 18px;
     }
     button,input {
         overflow: visible
@@ -124,7 +178,9 @@ export default injectGlobal`
         vertical-align: baseline
     }
     textarea {
-        overflow: auto
+        overflow: auto;
+        max-width: 100%;
+        background-color: ${palette.wetAsphalt};
     }
     [type="checkbox"],[type="radio"] {
         box-sizing: border-box;
@@ -160,4 +216,49 @@ export default injectGlobal`
         display: none
     }
 
+    body {
+        background-color: ${palette.midnightBlue};
+        color: ${palette.concrete};
+    }
+
+    .SR {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 1000px;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        clip: 0 0 0 0;
+
+    }
+
+    button, input, textarea {
+        &:hover,
+        &:active,
+        &:focus {
+            outline: none;
+        }
+        
+        border-color: transparent;
+    }
+
+    input, textarea {
+        color: ${palette.concrete};
+    }
+
+    ::-webkit-input-placeholder { 
+        color: ${palette.midnightBlue};
+    }
+    ::-moz-placeholder { 
+        color: ${palette.midnightBlue};
+    }
+    :-ms-input-placeholder {
+        color: ${palette.midnightBlue};
+    }
+    :-moz-placeholder { 
+        color: ${palette.midnightBlue};
+    }
 `;

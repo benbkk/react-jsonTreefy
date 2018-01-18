@@ -36,7 +36,7 @@ class JsonValue extends Component {
 
         return (
             <li className="rejt-value-node" component={'li'} style={style.li}>
-                <span className="rejt-name" style={style.name}>{name} : </span>
+                <span className="rejt-name" style={style.name}>{name}: </span>
                 <span className="rejt-value" style={style.value}>
                     {value}
                 </span>

@@ -48,7 +48,6 @@ class JsonArray extends Component {
         const { collapsed } = getStyle(name, data, keyPath, level, dataType);
         const collapseValue = ' [...]';
         const numberOfItems = data.length;
-        let minusElement = null;
 
         const itemName = (numberOfItems > 1) ? 'items' : 'item';
 
@@ -57,7 +56,6 @@ class JsonArray extends Component {
             <span className="rejt-collapsed-text" style={collapsed} onClick={this.handleCollapseMode}>
                 {collapseValue} {numberOfItems} {itemName}
             </span>
-            {minusElement}
         </span>);
         /* eslint-enable */
     }

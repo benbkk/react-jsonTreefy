@@ -8,13 +8,18 @@ const Header = styled.header`
     line-height: 64px;
     font-weight: 300;
     padding-left: 36px;
-    background: rgb(0, 188, 212);
-    margin-bottom: 18px;
+    background: ${palette.linkBlue};
+    margin-bottom: 0;
+
+    h1 {
+        font-size: 36px;
+        margin: 0;
+    }
 `;
 
 const AppHeader = () => (
-    <Header>
-        {'react jsonView'}
+    <Header className={'app-header'}>
+        <h1>{'react jsonView'}</h1>
     </Header>    
 );
 
