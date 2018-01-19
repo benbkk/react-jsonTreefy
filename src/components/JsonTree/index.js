@@ -14,7 +14,7 @@ class JsonTree extends Component {
 
     static defaultProps = {
         rootName: 'root',
-        isCollapsed: (keyPath, level) => (level === 0 || level !== 2),
+        isCollapsed: (keyPath, level) => (level === 0 || level === 2),
         getStyle: (keyName, data, keyPath, level, dataType) => {
             switch (dataType) {
                 case 'Object':

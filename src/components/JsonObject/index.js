@@ -55,7 +55,6 @@ class JsonObject extends Component {
         const collapseValue = ' {...}';
         const numberOfItems = keyList.length;
         const itemName = (numberOfItems > 1) ? 'keys' : 'key';
-        let minusElement = null;
 
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<span className="rejt-collapsed">
