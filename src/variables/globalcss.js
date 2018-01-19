@@ -83,7 +83,8 @@ export default injectGlobal`
     }
     pre {
         font-family: monospace, monospace;
-        font-size: 1em
+        font-size: 14px;
+        margin: 0;
     }
     a {
         background-color: transparent;

@@ -15,7 +15,7 @@ export const MainStage = styled.main`
         vertical-align: top;
     }
     & pre {
-        font-size: 16px;
+        font-size: 14px;
         width: 70%;
     }
     & .input-textarea {
