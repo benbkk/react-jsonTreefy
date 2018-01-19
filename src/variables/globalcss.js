@@ -143,15 +143,29 @@ export default injectGlobal`
         font-family: ${family.book};
         font-size: 100%;
         line-height: 1.15;
+        
         margin: 0;
-        padding: 12px 18px;
+        padding: 9px 18px;
     }
+
+    button {
+        margin: 5px 10px;
+        text-transform: uppercase;
+        font-size: 90%;
+    }
+
     button,input {
-        overflow: visible
+        overflow: visible;
     }
     button,select {
-        text-transform: none
+        
+        border-radius: 2px;
+        color: currentColor;
+        border-color: currentColor;
+        cursor: pointer;
+        letter-spacing: 2px;
     }
+
     button,html [type="button"],[type="reset"],[type="submit"] {
         -webkit-appearance: button
     }
@@ -181,6 +195,7 @@ export default injectGlobal`
         overflow: auto;
         max-width: 100%;
         background-color: ${palette.wetAsphalt};
+        border-radius: 2px;
     }
     [type="checkbox"],[type="radio"] {
         box-sizing: border-box;

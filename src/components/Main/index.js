@@ -35,7 +35,7 @@ class Main extends Component {
         super(props);
         this.state = {
             json: defaultJson,
-            value: {},
+            value: '',
         };
       
         this.handleChange = this.handleChange.bind(this);
@@ -45,10 +45,6 @@ class Main extends Component {
 
     render() {
         const {json} = this.state;
-        const style4 = {
-            margin: '0 15px',
-            minWidth: '200px',
-        };
         return (
             <MainStage>
                 <pre>
@@ -65,34 +61,36 @@ class Main extends Component {
                 />
                 <ButtonGroup className={'action-buttons'}>
                     <button onClick={this.handleSubmit}>Submit</button>
-                    <button onClick={this.handleReset}>Default</button>
+                    <button onClick={this.handleReset}>Reset</button>
                 </ButtonGroup>    
             </MainStage>
         );
     }
 
-    handleSubmit() {
-        let {value, json} = this.state;
-        json = JSON.parse(value);
-        json = flatten(Object.assign([], json));
-        json = createTree(json, 'parent_id');
-        
-        this.setState({
-            json,
-        });
+    handleSubmit(event) {
+            event.preventDefault();
+            let json = Object.assign([], this.state.json);
+            this.setState({
+                json: createTree(flatten(json), 'parent_id'),
+            });
     }
 
     handleChange(event) {
-        let inputValue = event.target.value;
+        event.preventDefault();
+        const inputValue = event.target.value;
+        let json = JSON.parse(inputValue);
+
         this.setState({
-            value: inputValue
+            value: inputValue,
+            json
         });
     }
 
     handleReset() {
         this.setState({
-            json: Object.assign([], defaultJson),
-            value: JSON.stringify(defaultJson, null, 3)
+            value: '',
+            json: defaultJson,
+            
         });
     }
 }

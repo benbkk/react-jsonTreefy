@@ -53,7 +53,7 @@ class JsonTree extends Component {
             <JsonNode
                     data={data}
                     name={rootName}
-                    collapsed={true}
+                    collapsed={false}
                     level={0}
                     isCollapsed={isCollapsed}
                     getStyle={getStyle}

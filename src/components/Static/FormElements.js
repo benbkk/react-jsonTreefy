@@ -54,6 +54,7 @@ export const TextArea = props => (
             name={props.name}
             placeholder={props.placeholder}
             onChange={props.onChange}
+            value={props.value}
         />
     </TextAreaWrapper>
 );
@@ -64,7 +65,7 @@ TextArea.propTypes = {
     name: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
-
+    value: PropTypes.any,
     label: PropTypes.string,
     labelIsHidden: PropTypes.bool,
 
