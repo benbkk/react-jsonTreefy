@@ -4,10 +4,9 @@ import AppFooter from 'static/AppFooter';
 import Main from 'components/Main';
 
 const App = () => (
-    <div>
+    <div className={'app-wrapper'}>
         <AppHeader />
-            <Main />
-        <AppFooter />
+        <Main />
     </div>    
 )
 
