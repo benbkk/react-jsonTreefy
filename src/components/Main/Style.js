@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-export const MainStage = styled.main`
+export const Main = styled.main`
     position: relative;
-    width: 100vw;
-    padding: 36px;
-    position: relative;
-    table-layout: fixed;
+   
     height: calc(100vh - 64px);
+    padding: 36px 0;
     overflow-y: auto;
+    margin: auto;
 
     & .input-textarea,
     & pre {

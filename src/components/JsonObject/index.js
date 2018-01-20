@@ -31,7 +31,7 @@ class JsonObject extends Component {
             data: props.data,
             keyPath,
             level,
-            collapsed: props.isCollapsed(keyPath, level, props.data),
+            collapsed: !props.isCollapsed(keyPath, level, props.data),
         };
 
         // Bind

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { palette } from 'variables';
 
+export const Container = styled.div`
+    width: 96%;
+    max-width: 1170px;
+    margin: auto;
+`;
+
 const FormWrapper = styled.form`
     position: relative;
 
@@ -68,6 +74,4 @@ TextArea.propTypes = {
     value: PropTypes.any,
     label: PropTypes.string,
     labelIsHidden: PropTypes.bool,
-
-
 }

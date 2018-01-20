@@ -1,40 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
-import { MainStage, ButtonGroup } from './MainStage';
-import { TextArea } from 'static/FormElements';
+import { Main, ButtonGroup } from './Style';
+import { TextArea, Container } from 'static/BaseElements';
 import { flatten, createTree } from 'utils';
-import { text } from 'variables';
+import { text, defaultJson } from 'variables';
 
-const defaultJson = {
-    error: new Error('error'),
-    func: () => console.log('test'),
-    text: 'text',
-    int: 100,
-    boolean: true,
-    null: null,
-    undefined: undefined,
-    object: {
-        text: 'text',
-        int: 100,
-        boolean: true,
-    },
-    array: [
-        1,
-        2,
-        3,
-        {
-            string: 'test',
-        }
-    ]
-}
-    
-
-class Main extends Component {
+class MainStage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            json: defaultJson,
+            json: {},
             value: '',
         };
       
@@ -43,43 +19,65 @@ class Main extends Component {
         this.handleReset = this.handleReset.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            json: defaultJson,
+        })
+    }
+
     render() {
         const {json} = this.state;
         return (
-            <MainStage>
-                <pre>
-                    <JsonTree data={json}/>
-                </pre>
-                <TextArea
-                    id={'textAreaId'}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    placeholder={text.textAreaPlaceholder}
-                    className={'input-textarea'}
-                    label={text.textAreaPlaceholder}
-                    labelIsHidden={true}
-                />
-                <ButtonGroup className={'action-buttons'}>
-                    <button onClick={this.handleSubmit}>Submit</button>
-                    <button onClick={this.handleReset}>Reset</button>
-                </ButtonGroup>    
-            </MainStage>
+            <Main>
+                <Container>
+                    <pre>
+                        <JsonTree data={json}/>
+                    </pre>
+                    <TextArea
+                        id={'textAreaId'}
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        placeholder={text.textAreaPlaceholder}
+                        className={'input-textarea'}
+                        label={text.textAreaPlaceholder}
+                        labelIsHidden={true}
+                    />
+                    <ButtonGroup className={'action-buttons'}>
+                        <button onClick={this.handleSubmit}>Submit</button>
+                        <button onClick={this.handleReset}>Reset</button>
+                    </ButtonGroup>
+                </Container>        
+            </Main>
         );
     }
 
     handleSubmit(event) {
-            event.preventDefault();
-            let json = Object.assign([], this.state.json);
-            this.setState({
-                json: createTree(flatten(json), 'parent_id'),
-            });
+        event.preventDefault();
+        let json = Object.assign([], this.state.json);
+        try {
+            try {
+                json = flatten(json);
+            } catch(err) {
+                return err;
+            } 
+            json = createTree(json, 'parent_id');
+        } catch(err) {
+            return err;
+        }
+        this.setState({
+            json
+        });
     }
 
     handleChange(event) {
-        event.preventDefault();
         const inputValue = event.target.value;
-        let json = JSON.parse(inputValue);
-
+        let json;
+            try {
+                json = JSON.parse(inputValue)
+            } catch(err) {
+                return err;
+            }
+        
         this.setState({
             value: inputValue,
             json
@@ -90,9 +88,8 @@ class Main extends Component {
         this.setState({
             value: '',
             json: defaultJson,
-            
         });
     }
 }
 
-export default Main;
+export default MainStage;

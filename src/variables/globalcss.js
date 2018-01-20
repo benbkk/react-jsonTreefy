@@ -266,15 +266,15 @@ export default injectGlobal`
     }
 
     ::-webkit-input-placeholder { 
-        color: ${palette.midnightBlue};
+        color: ${palette.concrete};
     }
     ::-moz-placeholder { 
-        color: ${palette.midnightBlue};
+        color: ${palette.concrete};
     }
     :-ms-input-placeholder {
-        color: ${palette.midnightBlue};
+        color: ${palette.concrete};
     }
     :-moz-placeholder { 
-        color: ${palette.midnightBlue};
+        color: ${palette.concrete};
     }
 `;

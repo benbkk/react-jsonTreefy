@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardMedia, CardTitle, CardText } from 'react-toolbox/lib/card';
 
 const style = {
@@ -9,17 +10,17 @@ const style = {
 };
 
 class ErrorBoundary extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       hasError: false
     };
   }
-  componentDidCatch(error, info) {
-    this.setState({
-      hasError: true
-    });
-  }
+
   render() {
     if(this.state.hasError) {
       return (
