@@ -1,65 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonNode from 'components/JsonNode';
-import { value, object, array } from 'utils/styles';
-import { getObjectType } from 'utils/objectTypes';
+import { getObjectType } from 'utils';
 
-class JsonTree extends Component {
-    static propTypes = {
-        data: PropTypes.any.isRequired,
-        rootName: PropTypes.string,
-        isCollapsed: PropTypes.func,
-        getStyle: PropTypes.func,
-    }
+const JsonTree = props => {
+    const { name, data, rootName, isCollapsed, level } = props;
+    return (
+        <JsonNode
+            data={data}
+            name={rootName}
+            isCollapsed={isCollapsed}
+            level={level}
+        />    
+    )
+}
 
-    static defaultProps = {
-        rootName: 'root',
-        isCollapsed: (keyPath, level) => ( level === 0 || level === 1 ),
-        getStyle: (keyName, data, keyPath, level, dataType) => {
-            switch (dataType) {
-                case 'Object':
-                case 'Error':
-                    return object;
-                case 'Array':
-                    return array;
-                default:
-                    return value;
-            }
-        },
-    }
+JsonTree.propTypes = {
+    name: PropTypes.string,
+    data: PropTypes.any,
+    rootName: PropTypes.string,
+    isCollapsed: PropTypes.bool,
+    level: PropTypes.number
+}
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {},
-            rootName: props.rootName,
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            data: nextProps.data,
-            rootName: nextProps.rootName,
-        });
-    }
-
-
-    render() {
-        const { data, rootName } = this.state;
-        const { isCollapsed, getStyle } = this.props;
-        const dataType = getObjectType(data);
-
-        return (
-            <JsonNode
-                    data={data}
-                    name={rootName}
-                    collapsed={false}
-                    level={0}
-                    isCollapsed={isCollapsed}
-                    getStyle={getStyle}
-                />
-        )
-    }
+JsonTree.defaultProps = {
+    rootName: 'root',
+     // isCollapsed: (keyPath, level) => ( level === 0 || level !== 2 )
 }
 
 export default JsonTree;

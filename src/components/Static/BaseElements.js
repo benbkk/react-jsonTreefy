@@ -75,3 +75,66 @@ TextArea.propTypes = {
     label: PropTypes.string,
     labelIsHidden: PropTypes.bool,
 }
+
+export const UL = styled.ul`
+    margin-left: 27px;
+    padding-left: 0;
+    list-style: none;
+    position: relative;
+`;
+
+export const LI = styled.li`
+    margin: 5px 0;
+`;
+
+export const DL = styled.dl`
+`;
+
+export const DT = styled.dt`
+    display: inline-block;
+    vertical-align: top;
+`;
+
+export const DD = styled.dd`
+    display: inline-block;
+    vertical-align: top;
+`;
+
+export const Property = styled.span`
+    display: inline-block;
+    vertical-align: top;
+    color: ${palette.linkBlue};
+
+    &.type-object,
+    &.type-array {
+        cursor: pointer;
+    }
+
+    & .open-array,
+    & .open-object {
+        color: ${palette.concrete};
+        cursor: pointer;
+        display: inline-block;
+    }
+`;
+
+export const Value = styled.span`
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+    color: ${palette.green};
+
+    &.collapsed {
+        & .placeholder {
+            color: ${palette.concrete};
+            cursor: pointer;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        & .unit-value {
+            color: ${palette.green};
+            cursor: pointer;
+        }
+    }
+    
+`;

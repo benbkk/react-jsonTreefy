@@ -31,7 +31,11 @@ class MainStage extends Component {
             <Main>
                 <Container>
                     <pre>
-                        <JsonTree data={json}/>
+                        <ul>
+                            <JsonTree 
+                                data={json}
+                            />
+                        </ul>    
                     </pre>
                     <TextArea
                         id={'textAreaId'}
@@ -43,7 +47,7 @@ class MainStage extends Component {
                         labelIsHidden={true}
                     />
                     <ButtonGroup className={'action-buttons'}>
-                        <button onClick={this.handleSubmit}>Submit</button>
+                        <button onClick={this.handleSubmit}>Treefy!</button>
                         <button onClick={this.handleReset}>Reset</button>
                     </ButtonGroup>
                 </Container>        

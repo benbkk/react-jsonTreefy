@@ -237,6 +237,15 @@ export default injectGlobal`
         color: ${palette.concrete};
     }
 
+    ul {
+        list-style: none;
+        padding-left: 18px;
+    }
+
+    dd {
+        margin-left: 0;
+    }
+
     .SR {
         opacity: 0;
         visibility: hidden;

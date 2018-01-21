@@ -8,11 +8,14 @@ export const palette = {
     pomegranateRed: '#c0392b',
     alizarinRed: '#e74c3c',
     concrete: '#95a5a6',
-    linkBlue: '#2287CD'
+    linkBlue: '#2287CD',
+    green: '#7bba3d'
 }
 
 export const text = {
     textAreaPlaceholder: 'Paste in your data here. It must be either array or object',
+    objectCollapsed: '{...}',
+    arrayCollapsed: '[...]'
 }
 
 export const family = {
