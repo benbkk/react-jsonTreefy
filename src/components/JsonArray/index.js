@@ -55,7 +55,7 @@ class JsonArray extends Component {
             />
 
         return (
-            <LI className="node type-array">
+            <LI className={`node type-array ${!collapsed && 'expanded'}`}>
                 <Property className="property type-array" onClick={this.handleCollapseMode}>{name}: 
                     {!collapsed && <span className={'open-array'}>{' ['}</span> }
                 </Property>
@@ -66,10 +66,10 @@ class JsonArray extends Component {
     }
 
     handleCollapseMode() {
-      this.setState({
-          collapsed: !this.state.collapsed,
-      });
-  }
+        this.setState({
+            collapsed: !this.state.collapsed,
+        });
+    }
 }
 
 export default JsonArray;

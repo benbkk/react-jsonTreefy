@@ -61,9 +61,9 @@ class JsonObject extends Component {
                 dataType={dataType}
             />
         return (
-            <LI className="node type-object">
+            <LI className={`node type-object ${!collapsed && 'expanded'}`}>
                 <Property className="property type-object" onClick={this.handleCollapseMode}>{name}:
-                {!collapsed && <span className={'open-object'}>{' {'}</span>} 
+                    {!collapsed && <span className={'open-object'}>{' {'}</span>} 
                 </Property>
                 {value}
                 {!collapsed && <span className={'close-object'}>{'}'}</span>}

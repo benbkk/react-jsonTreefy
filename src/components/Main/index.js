@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JsonTree from 'components/JsonTree';
+import ErrorBoundaries from 'components/Error';
 import { Main, ButtonGroup } from './Style';
-import { TextArea, Container } from 'static/BaseElements';
+import { TextArea, Container, UL } from 'static/BaseElements';
 import { flatten, createTree } from 'utils';
 import { text, defaultJson } from 'variables';
+import Button from 'static/Button';
 
 class MainStage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             json: {},
-            value: '',
+            value: ''
         };
       
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTreefyIt = this.handleTreefyIt.bind(this);
         this.handleReset = this.handleReset.bind(this);
     }
 
@@ -31,12 +33,13 @@ class MainStage extends Component {
             <Main>
                 <Container>
                     <pre>
-                        <ul>
+                        <UL>
                             <JsonTree 
                                 data={json}
                             />
-                        </ul>    
+                        </UL>    
                     </pre>
+                    
                     <TextArea
                         id={'textAreaId'}
                         value={this.state.value}
@@ -46,16 +49,19 @@ class MainStage extends Component {
                         label={text.textAreaPlaceholder}
                         labelIsHidden={true}
                     />
+                    
                     <ButtonGroup className={'action-buttons'}>
-                        <button onClick={this.handleSubmit}>Treefy!</button>
-                        <button onClick={this.handleReset}>Reset</button>
+                        <Button className={'button-treefyit green'} onClick={this.handleTreefyIt} disabled={true}>TreefyIt!</Button>
+                        <Button className={'button-reset concrete'} onClick={this.handleReset}>Reset</Button>
                     </ButtonGroup>
+                    
                 </Container>        
             </Main>
+            
         );
     }
 
-    handleSubmit(event) {
+    handleTreefyIt(event) {
         event.preventDefault();
         let json = Object.assign([], this.state.json);
         try {
@@ -73,6 +79,7 @@ class MainStage extends Component {
         });
     }
 
+    
     handleChange(event) {
         const inputValue = event.target.value;
         let json;
@@ -88,7 +95,8 @@ class MainStage extends Component {
         });
     }
 
-    handleReset() {
+    handleReset(event) {
+        event.preventDefault();
         this.setState({
             value: '',
             json: defaultJson,

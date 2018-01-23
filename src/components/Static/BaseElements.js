@@ -85,6 +85,27 @@ export const UL = styled.ul`
 
 export const LI = styled.li`
     margin: 5px 0;
+
+    &.type-object,
+    &.type-array {
+        &:before {
+            content: '+';
+            display: inline-block;
+            margin-left: -22px;
+            margin-right: 9px;
+            border: 1px solid ${palette.concrete};
+            text-align: center;
+            font-size: 10px;
+            width: 10px;
+            opacity: 0.5;
+        }
+
+        &.expanded {
+            &:before {
+                content: '-';
+            }
+        }
+    }
 `;
 
 export const DL = styled.dl`

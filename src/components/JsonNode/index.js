@@ -12,16 +12,6 @@ const JsonNode = props => {
     const dataType = getObjectType(data);
     switch (dataType) {
         case 'Error':
-            return (
-                <JsonObject
-                    data={data}
-                    name={name}
-                    isCollapsed={isCollapsed}
-                    keyPath={keyPath}
-                    level={level}
-                    dataType={dataType}
-                />
-        );
         case 'Object':
             return (
                 <JsonObject
@@ -41,33 +31,17 @@ const JsonNode = props => {
                 isCollapsed={isCollapsed}
                 keyPath={keyPath}
                 level={level}
-
-                dataType={dataType}
-                
+                dataType={dataType}            
             />);
         case 'String':
+        case 'Number':
             return (<JsonValue
                 name={name}
                 value={`"${data}"`}
                 originalValue={data}
                 keyPath={keyPath}
                 level={level}
-
                 dataType={dataType}
-               
-                
-            />);
-        case 'Number':
-            return (<JsonValue
-                name={name}
-                value={data}
-                originalValue={data}
-                keyPath={keyPath}
-                level={level}
-               
-                dataType={dataType}
-               
-               
             />);
         case 'Boolean':
             return (<JsonValue
@@ -76,11 +50,7 @@ const JsonNode = props => {
                 originalValue={data}
                 keyPath={keyPath}
                 level={level}
-
-               
                 dataType={dataType}
-               
-               
             />);
         case 'Date':
             return (<JsonValue
@@ -89,11 +59,7 @@ const JsonNode = props => {
                 originalValue={data}
                 keyPath={keyPath}
                 level={level}
-
-               
                 dataType={dataType}
-               
-               
             />);
         case 'Null':
             return (<JsonValue
@@ -101,11 +67,8 @@ const JsonNode = props => {
                 value={'null'}
                 originalValue={'null'}
                 keyPath={keyPath}
-                level={level}
-               
+                level={level}     
                 dataType={dataType}
-               
-               
             />);
         case 'Undefined':
             return (<JsonValue
@@ -113,25 +76,10 @@ const JsonNode = props => {
                 value={'undefined'}
                 originalValue={'undefined'}
                 keyPath={keyPath}
-                level={level}
-                
-                dataType={dataType}
-               
-                
+                level={level}               
+                dataType={dataType}          
             />);
         case 'Function':
-            return (<JsonFunctionValue
-                name={name}
-                value={data.toString()}
-                originalValue={data}
-                keyPath={keyPath}
-                level={level}
-                
-               
-                dataType={dataType}
-               
-               
-            />);
         case 'Symbol':
             return (<JsonValue
                 name={name}
