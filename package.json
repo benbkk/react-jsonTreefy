@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^8.2.2",
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -29,7 +29,7 @@
     "eslint-config-esnext": "^2.0.0",
     "eslint-config-node": "^2.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-config-react-app": "^2.0.1",
+    "eslint-config-react-app": "^2.1.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -64,9 +64,9 @@
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "start": "node ./config/scripts/start.js",
+    "build": "node ./config/scripts/build.js",
+    "test": "node ./config/scripts/test.js --env=jsdom"
   },
   "jest": {
     "collectCoverageFrom": [

@@ -24,6 +24,7 @@ class MainStage extends Component {
     componentDidMount() {
         this.setState({
             json: defaultJson,
+            value: JSON.stringify(defaultJson, null, 4)
         })
     }
 
@@ -51,7 +52,7 @@ class MainStage extends Component {
                     />
                     
                     <ButtonGroup className={'action-buttons'}>
-                        <Button className={'button-treefyit green'} onClick={this.handleTreefyIt} disabled={true}>TreefyIt!</Button>
+                        <Button className={'button-treefyit green'} onClick={this.handleTreefyIt}>TreefyIt!</Button>
                         <Button className={'button-reset concrete'} onClick={this.handleReset}>Reset</Button>
                     </ButtonGroup>
                     
@@ -61,7 +62,7 @@ class MainStage extends Component {
         );
     }
 
-    handleTreefyIt(event) {
+    handleTreefyIt = event => {
         event.preventDefault();
         let json = Object.assign([], this.state.json);
         try {
@@ -80,7 +81,7 @@ class MainStage extends Component {
     }
 
     
-    handleChange(event) {
+    handleChange = event => {
         const inputValue = event.target.value;
         let json;
             try {
@@ -95,10 +96,10 @@ class MainStage extends Component {
         });
     }
 
-    handleReset(event) {
+    handleReset = (event) => {
         event.preventDefault();
         this.setState({
-            value: '',
+            value: JSON.stringify(defaultJson, null, 4),
             json: defaultJson,
         });
     }

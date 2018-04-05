@@ -1,6 +1,6 @@
 export const flatten = arr => arr.reduce((acc, value) => acc.concat(value), []);
 
-export const createTree = (arr, prop) => arr.reduce((acc, value) => {
+export const createTree = (arr, prop) => arr.reduce((acc, value, i) => {
     acc.i[value.id] = value;
     value.children = [];
     value[prop] === null ?

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import JsonValue from 'components/JsonValue';
 import JsonObject from 'components/JsonObject';
 import JsonArray from 'components/JsonArray';
-import JsonFunctionValue from 'components/JsonFunctionValue';
+// import JsonFunctionValue from 'components/JsonFunctionValue';
 import { getObjectType } from 'utils';
 
 const JsonNode = props => {

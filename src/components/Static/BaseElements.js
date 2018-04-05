@@ -31,7 +31,7 @@ Form.propTypes = {
 
 
 const TextAreaWrapper = styled.div`
-    min-height: 300px;
+    min-height: 75vh;
 `;
 
 const TextAreaInput = styled.textarea`
